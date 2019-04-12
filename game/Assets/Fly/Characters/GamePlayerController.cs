@@ -25,14 +25,41 @@ public class GamePlayerController : MonoBehaviour
     private const int B_ButtonIndex = 3;
     private GameAction m_currentAction = GameAction.none;
     private GamePadState m_gamePadState;
+    private float m_progress = 0.0f;
 
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons;
 
+    [SerializeField]
+    public SpriteRenderer ProgressBarBg;
+    [SerializeField]
+    public SpriteRenderer ProgressBar;
+
     // Start is called before the first frame update
+
+    void ShowProgressBar()
+    {
+        ProgressBarBg.enabled = true;
+        ProgressBar.enabled = true;
+    }
+
+    void HideProgressBar()
+    {
+        m_progress = 0.0f;
+        ProgressBarBg.enabled = false;
+        ProgressBar.enabled = false;
+    }
+
+    void SetProgress(float val)
+    {
+        var scale = ProgressBar.transform.localScale;
+        scale.y = Mathf.Lerp(0.0f, 11.8f, val);
+        ProgressBar.transform.localScale = scale;
+    }
+
     void Start()
     {
-
+        HideProgressBar();
     }
 
     // Update is called once per frame
@@ -76,6 +103,7 @@ public class GamePlayerController : MonoBehaviour
                     {
                         Buttons[A_ButtonIndex].enabled = false;
                         m_currentAction = GameAction.activating;
+                        ShowProgressBar();
 
                     }
                 }
@@ -84,10 +112,13 @@ public class GamePlayerController : MonoBehaviour
 
                 if (m_gamePadState.Buttons.A == ButtonState.Pressed)
                 {
+                    m_progress += 0.01f;
+                    SetProgress(m_progress);
                     m_isInAction = true;
                 }
                 else
                 {
+                    HideProgressBar();
                     m_currentAction = GameAction.activatorTriggered;
                     m_isInAction = false;
                 }
@@ -99,6 +130,7 @@ public class GamePlayerController : MonoBehaviour
                     {
                         Buttons[X_ButtonIndex].enabled = false;
                         m_currentAction = GameAction.getting;
+                        ShowProgressBar();
 
                     }
                 }
@@ -107,9 +139,12 @@ public class GamePlayerController : MonoBehaviour
                 if (m_gamePadState.Buttons.X == ButtonState.Pressed)
                 {
                     m_isInAction = true;
+                    m_progress += 0.01f;
+                    SetProgress(m_progress);
                 }
                 else
                 {
+                    HideProgressBar();
                     m_currentAction = GameAction.getterTriggered;
                     m_isInAction = false;
                 }
@@ -120,16 +155,20 @@ public class GamePlayerController : MonoBehaviour
                     {
                         Buttons[Y_ButtonIndex].enabled = false;
                         m_currentAction = GameAction.setting;
+                        ShowProgressBar();
 
-                    }
+                }
                 break;
             case GameAction.setting:
                 if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
                 {
                     m_isInAction = true;
+                    m_progress += 0.01f;
+                    SetProgress(m_progress);
                 }
                 else
                 {
+                    HideProgressBar();
                     m_currentAction = GameAction.setterTriggered;
                     m_isInAction = false;
                 }
@@ -187,6 +226,7 @@ public class GamePlayerController : MonoBehaviour
         {
             Buttons[X_ButtonIndex].enabled = false;
             m_currentAction = GameAction.none;
+
             return;
         }
         
