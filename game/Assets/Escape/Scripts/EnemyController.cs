@@ -90,10 +90,10 @@ public class EnemyController : MonoBehaviour
 
                 GameObject gameObject = Instantiate(rangedPainObject);
                 gameObject.transform.position = transform.position;
+                gameObject.transform.rotation = transform.rotation;
 
                 var beam = gameObject.GetComponent<RangedEnemyPainController>();
                 beam.direction = directionVector;
-
             }
         }
     }
