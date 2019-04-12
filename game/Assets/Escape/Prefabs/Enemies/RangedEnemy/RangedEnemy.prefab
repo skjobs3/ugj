@@ -136,4 +136,4 @@ MonoBehaviour:
   rangedAttackSpeed: 1.2
   HP: 70
   attackDistance: 10
-  speed: 5
+  speed: 2
