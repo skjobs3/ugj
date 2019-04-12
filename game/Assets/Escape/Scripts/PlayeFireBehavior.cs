@@ -6,6 +6,8 @@ using XInputDotNetPure;
 
 public class PlayeFireBehavior : MonoBehaviour
 {
+    public GameObject BulletPrefab;
+
     private PlayerIndex m_index = PlayerIndex.One;
     public PlayerIndex Index
     {
@@ -34,8 +36,6 @@ public class PlayeFireBehavior : MonoBehaviour
 
     private float m_fireInterval = 0.0f;
     private float m_lastFireStamp = 0;
-
-    public Action OnFire;
 
     // Start is called before the first frame update
     void Start()
@@ -71,11 +71,18 @@ public class PlayeFireBehavior : MonoBehaviour
         if(state.Triggers.Right >= 0.5f && (fireDelta >= m_fireInterval))
         {
             m_lastFireStamp = Time.time;
-
-            if (OnFire != null)
-            {
-                OnFire();
-            }
+            Fire();
         }
+    }
+
+    void Fire()
+    {
+        Transform fireSocket = transform.Find("FireSocket");
+        Transform buttSocket = transform.Find("ButtSocket");
+
+        Bullet bullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+        bullet.transform.position = fireSocket.position;
+        bullet.Direction = (fireSocket.position - buttSocket.position).normalized;
+        bullet.Speed = 20;
     }
 }

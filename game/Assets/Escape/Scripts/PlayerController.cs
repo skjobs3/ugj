@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public PlayerIndex Index;
     public GameObject FireBehaviorPrefab;
     public GameObject CarryBehaviorPrefab;
-
+   
     private GameObject m_behavior;
 
     // Start is called before the first frame update
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         PlayeFireBehavior gun = m_behavior.GetComponent<PlayeFireBehavior>();
         gun.Index = Index;
         gun.FireRate = 10;
-        gun.RotationSpeed = 290.0f;
+        gun.RotationSpeed = 290.0f; 
     }
 
     void SetCarryBehavior()
