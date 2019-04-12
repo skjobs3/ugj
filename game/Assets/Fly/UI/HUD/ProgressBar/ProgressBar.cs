@@ -1,20 +1,61 @@
-﻿using UnityEngine;
-
-namespace Fly
+﻿namespace Fly
 {
     namespace UI.HUD
     {
-        public class ProgressBar : MonoBehaviour
+        public class ProgressBar : UnityEngine.MonoBehaviour
         {
-            public GameObject Map;
-            public GameObject Ship;
-            public GameObject Enemy;
+            [UnityEngine.SerializeField]
+            private UnityEngine.RectTransform _Path;
 
-            public float enemyPosition;
-            public float shipPosition;
+            [UnityEngine.SerializeField]
+            private UnityEngine.RectTransform _Ship;
+
+            [UnityEngine.SerializeField]
+            private UnityEngine.RectTransform _Enemy;
+
+            [UnityEngine.SerializeField]
+            private float _EnemyProgress;
+
+            public float EnemyProgress
+            {
+                get
+                {
+                    return this._EnemyProgress;
+                }
+                set
+                {
+                    this._EnemyProgress = UnityEngine.Mathf.Clamp01(value);
+
+                    UnityEngine.Vector2 Position = this._Enemy.anchoredPosition;
+                    Position.x = this._Path.rect.size.x * this._EnemyProgress;
+                    this._Enemy.anchoredPosition = Position;
+                }
+            }
+
+            [UnityEngine.SerializeField]
+            private float _ShipProgress;
+
+            public float ShipProgress
+            {
+                get
+                {
+                    return this._ShipProgress;
+                }
+                set
+                {
+                    this._ShipProgress = UnityEngine.Mathf.Clamp01(value);
+
+                    UnityEngine.Vector2 Position = this._Ship.anchoredPosition;
+                    Position.x = this._Path.rect.size.x * this._ShipProgress;
+                    this._Ship.anchoredPosition = Position;
+                }
+            }
 
             void Update()
             {
+                this.EnemyProgress = this._EnemyProgress;
+                this.ShipProgress = this._ShipProgress;
+                /*
                 float mapWidth = Map.GetComponent<RectTransform>().rect.width;
                 var pos = Ship.transform.position;
                 pos.x = mapWidth * shipPosition + Map.transform.position.x;
@@ -23,6 +64,7 @@ namespace Fly
 
                 pos.x = mapWidth * enemyPosition + Map.transform.position.x;
                 Enemy.transform.position = pos;
+                */
             }
         }
     }

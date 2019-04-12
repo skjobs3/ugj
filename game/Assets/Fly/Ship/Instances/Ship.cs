@@ -1,4 +1,4 @@
-﻿namespace Fly.Ship
+﻿namespace Fly.Ship.Instances
 {
     public class Ship : UnityEngine.MonoBehaviour
     {

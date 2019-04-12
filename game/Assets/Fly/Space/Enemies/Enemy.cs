@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter2D(Collision2D otherObj)
     {
         Debug.Log("Collide");
-        var ship = otherObj.gameObject.GetComponentInParent<Fly.Ship.Ship>();
+        var ship = otherObj.gameObject.GetComponentInParent<Fly.Ship.Instances.Ship>();
         if (ship)
         {
             Debug.Log("Ship");
