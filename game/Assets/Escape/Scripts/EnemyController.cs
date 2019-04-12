@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public GameObject healthBarPrefab = null;
+    public float healthBarOffsetX = -2.5f;
+    public float healthBarOffsetY = 1.0f;
+
     public GameObject rangedPainObject = null;
     public float rangedAttackSpeed = 0.6f;
 
-    public float HP = 100.0f;
+    public float hitPoints = 100.0f;
     public float attackDistance = 2.1f;
     public float speed;
 
+    private float currentHitPoints;
+    public float hideHealthBarTime = 2.0f;
+    private float lastHitTakenTimer = 0.0f;
+
     private GameObject player1;
     private GameObject player2;
+    private GameObject healthBar = null;
 
     private bool hasTarget = false;
     private Vector3 targetPosition = new Vector3();
@@ -25,14 +34,36 @@ public class EnemyController : MonoBehaviour
 
     public void Hit(float damage)
     {
-        HP -= damage;
+        currentHitPoints -= damage;
+        lastHitTakenTimer = 0.0f;
     }
 
     void updateHealth()
     {
-        if (HP < 0)
+        lastHitTakenTimer += Time.deltaTime;
+
+        if (currentHitPoints < 0)
         {
             Destroy(gameObject);
+            Destroy(healthBar);
+        }
+
+        if(healthBar != null)
+        {
+            if(lastHitTakenTimer > hideHealthBarTime)
+            {
+                healthBar.SetActive(false);
+            }
+            else
+            {
+                healthBar.SetActive(true);
+            }
+
+            var newPosition = new Vector3(transform.position.x + healthBarOffsetX, transform.position.y + healthBarOffsetY, transform.position.z);
+            healthBar.transform.position = newPosition;
+
+            healthBar.GetComponent<HealthBarBehaviour>().SetTotal(hitPoints);
+            healthBar.GetComponent<HealthBarBehaviour>().SetLeft(currentHitPoints);
         }
     }
 
@@ -87,7 +118,7 @@ public class EnemyController : MonoBehaviour
         if (hasTarget && rangedPainObject)
         {
             rangedAttackTimer += Time.deltaTime;
-            if(rangedAttackTimer > rangedAttackSpeed)
+            if(rangedAttackTimer > rangedAttackSpeed && targetDistance < attackDistance)
             {
                 Vector3 directionVector = new Vector2(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y);
 
@@ -99,6 +130,7 @@ public class EnemyController : MonoBehaviour
 
                 var beam = gameObject.GetComponent<RangedEnemyPainController>();
                 beam.direction = directionVector;
+                beam.SetSelf(gameObject);
             }
         }
     }
@@ -120,6 +152,18 @@ public class EnemyController : MonoBehaviour
     {
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
+
+        currentHitPoints = hitPoints;
+        if (healthBar == null)
+        {
+            healthBar = Instantiate(healthBarPrefab);
+            healthBar.transform.position = transform.position;
+
+            healthBar.GetComponent<HealthBarBehaviour>().SetTotal(hitPoints);
+            healthBar.GetComponent<HealthBarBehaviour>().SetLeft(currentHitPoints);
+
+            healthBar.SetActive(false);
+        }
     }
 
     void FixedUpdate()

@@ -94,6 +94,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93ec41f64bfa246b1922192eae20c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 426678168139307974, guid: af9b42a21e8bdc6439230507bc144ff0,
+    type: 3}
+  healthBarOffsetX: -1.2
+  healthBarOffsetY: 0.8
+  rangedPainObject: {fileID: 0}
+  rangedAttackSpeed: 0.6
   HP: 100
   attackDistance: 2.1
   speed: 0.8

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4951558735829260217}
   m_Layer: 0
   m_Name: RangedEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93ec41f64bfa246b1922192eae20c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 426678168139307974, guid: af9b42a21e8bdc6439230507bc144ff0,
+    type: 3}
+  healthBarOffsetX: -1
+  healthBarOffsetY: 1
   rangedPainObject: {fileID: 6483175528539169119, guid: 6fc0d80526c565d4bb6d2bbf7cd3428c,
     type: 3}
   rangedAttackSpeed: 1.2
