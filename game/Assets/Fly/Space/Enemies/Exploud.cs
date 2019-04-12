@@ -20,7 +20,6 @@ public class Exploud : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D otherObj)
     {
-        Random rand = new Random();
         foreach (GameObject garbObjType in garbageObjects)
         {
             var GO = Instantiate(garbObjType, this.transform.position, Quaternion.identity);
