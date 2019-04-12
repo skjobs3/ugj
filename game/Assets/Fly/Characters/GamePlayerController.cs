@@ -6,6 +6,10 @@ using XInputDotNetPure;
 public class GamePlayerController : MonoBehaviour
 {
     public int index;
+
+    [SerializeField]
+    private System.Collections.Generic.List<SpriteRenderer> Buttons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +37,24 @@ public class GamePlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision");
+        var component = collision.gameObject.GetComponent<Fly.Ship.Modules.Areas.Area>();
+        if (component)
+        {
+            Buttons[0].enabled = true;
+           // GetComponent
+            //Debug.Log(component.gameObject.name);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        //Debug.Log("Exit");
+        var component = collision.gameObject.GetComponent<Fly.Ship.Modules.Areas.Area>();
+        if (component)
+        {
+            Buttons[0].enabled = false;
+            // GetComponent
+            //Debug.Log(component.gameObject.name);
+        }
     }
 }
