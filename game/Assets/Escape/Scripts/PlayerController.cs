@@ -9,9 +9,8 @@ public class PlayerController : MonoBehaviour
     public PlayerIndex Index;
 
     public GameObject FireBehaviorPrefab;
-    public GameObject CarryBehaviorPrefab;
     public GameObject AmmoSupplyPrefab;
-    public GameObject FuelSuppltPrefab;
+    public GameObject FuelSupplyPrefab;
 
     public List<SupplyZone> m_supplyZones;
 
@@ -27,17 +26,17 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            //#TODO:
-            return false;
+            return m_supply != null;
         }
     }
 
     private GameObject m_gun;
+    private GameObject m_supply;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform socket = transform.Find("FireBehaviorSocket");
+        Transform socket = transform.Find("GunSocket");
         m_gun = Instantiate(FireBehaviorPrefab, socket);
 
         PlayeFireBehavior gun = m_gun.GetComponent<PlayeFireBehavior>();
@@ -99,8 +98,27 @@ public class PlayerController : MonoBehaviour
 
             if(zone.GetComponent<Collider2D>().IsTouching(playerCollider))
             {
-                Debug.Log("Taking zone supply");
-                //#TODO: Take supply from this zone
+                GameObject supply = null;
+
+                switch (zone.Type)
+                {
+                    case SupplyZone.SupplyType.Ammo:
+                        supply = Instantiate(AmmoSupplyPrefab);
+                        break;
+
+                    case SupplyZone.SupplyType.Fuel:
+                        supply = Instantiate(FuelSupplyPrefab);
+                        break;
+
+                    default:
+                        Debug.Assert(false, "Unknown supply type");
+                        break;
+                }
+
+                supply.GetComponent<Supply>().Type = zone.Type;
+                supply.tag = "Supply";
+
+                TakeSupply(supply);
                 return true;
             }
         }
@@ -110,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     bool TakeSupplyFromTheGound()
     {
-        var supplies = GameObject.FindGameObjectsWithTag("supply");
+        var supplies = GameObject.FindGameObjectsWithTag("Supply");
 
         if (supplies.Length == 0)
         {
@@ -132,8 +150,27 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    void TakeSupply(GameObject supply)
+    {
+        Transform socket = gameObject.transform.Find("SupplySocket");
+        supply.transform.SetParent(socket);
+        supply.transform.localPosition = Vector3.zero;
+        supply.GetComponent<Supply>().IsTaken = true;
+
+        m_supply = supply;
+        SetGunEnabled(false);
+    }
+
     void DropSupply()
     {
-        //#TODO:
+        if(m_supply != null)
+        {
+            m_supply.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 350.0f);
+            m_supply.GetComponent<Supply>().IsTaken = false;
+            m_supply.transform.SetParent(null);
+            m_supply = null;
+
+            SetGunEnabled(true);
+        }
     }
 }

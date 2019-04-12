@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class SupplyZone : MonoBehaviour
 {
+    public enum SupplyType
+    {
+        Ammo,
+        Fuel
+    }
+
+    public SupplyType Type = SupplyType.Ammo;
+
     private List<PlayerController> m_activePlayers = new List<PlayerController>();
 
     // Start is called before the first frame update
