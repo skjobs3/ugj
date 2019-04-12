@@ -1,17 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Fly.Ship.Modules.Areas
+namespace Fly.Ship.Areas
 {
-    public class Area : Fly.Ship.Module
+    public abstract class Area : UnityEngine.MonoBehaviour
     {
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
     }
 }

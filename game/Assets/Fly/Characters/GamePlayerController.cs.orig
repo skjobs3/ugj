@@ -37,6 +37,27 @@ public class GamePlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+<<<<<<< Updated upstream
+        var component = collision.gameObject.GetComponent<Fly.Ship.Modules.Areas.Area>();
+        if (component)
+        {
+            Buttons[0].enabled = true;
+           // GetComponent
+            //Debug.Log(component.gameObject.name);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        //Debug.Log("Exit");
+        var component = collision.gameObject.GetComponent<Fly.Ship.Modules.Areas.Area>();
+        if (component)
+        {
+            Buttons[0].enabled = false;
+            // GetComponent
+            //Debug.Log(component.gameObject.name);
+        }
+=======
         Fly.Ship.Areas.Area Area = collision.gameObject.GetComponent<Fly.Ship.Areas.Area>();
         if (!Area)
         {
@@ -64,5 +85,7 @@ public class GamePlayerController : MonoBehaviour
             return;
         }
 
+        Debug.Log("Collision");
+>>>>>>> Stashed changes
     }
 }
