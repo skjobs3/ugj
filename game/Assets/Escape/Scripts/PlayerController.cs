@@ -9,10 +9,16 @@ public class PlayerController : MonoBehaviour
     public PlayerIndex Index;
 
     public GameObject FireBehaviorPrefab;
-    public GameObject AmmoSupplyPrefab;
-    public GameObject FuelSupplyPrefab;
+    public GameObject SupplyPrefab;
 
     public List<SupplyZone> m_supplyZones;
+
+    private Rect cameraBounds = new Rect(-100, -100, 200, 200);
+
+    public void SetCameraBounds(Rect bounds)
+    {
+        cameraBounds = bounds;
+    }
 
     public bool IsAbleToTakeSupply
     {
@@ -61,8 +67,27 @@ public class PlayerController : MonoBehaviour
         }
 
         ProcessMovement(state);
+        ProcessSupplies(state);
+        ProcessWeaponChanging(state);
+    }
 
-        if(state.Buttons.A == ButtonState.Pressed)
+    void ProcessMovement(GamePadState state)
+    {
+        Vector3 leftStick = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y, 0.0f);
+        Vector3 rightStick = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y, 0.0f);
+
+        Vector3 pos = gameObject.transform.position;
+        var newPos = pos + leftStick * MovementSpeed * Time.deltaTime;
+
+        newPos.x = Mathf.Clamp(newPos.x, cameraBounds.x, cameraBounds.width);
+        newPos.y = Mathf.Clamp(newPos.y, cameraBounds.y, cameraBounds.height);
+
+        gameObject.transform.position = newPos;
+    }
+
+    void ProcessSupplies(GamePadState state)
+    {
+        if (state.Buttons.A == ButtonState.Pressed)
         {
             if(IsAbleToTakeSupply && !TakeSupplyFromTheGound())
             {
@@ -71,16 +96,25 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(IsCarryingSupply)
+            if (IsCarryingSupply)
             {
-                DropSupply();
+                DropSupply(state);
             }
         }
+    }
 
-        // Weapon changing logic
-        if(!IsCarryingSupply)
+    void ProcessWeaponChanging(GamePadState state)
+    {
+        WeaponManager manager = GetComponent<WeaponManager>();
+
+        if(!manager.IsWeaponActive)
         {
-            if(state.DPad.Left == ButtonState.Pressed)
+            return;
+        }
+
+        if (!IsCarryingSupply)
+        {
+            if (state.DPad.Left == ButtonState.Pressed)
             {
                 m_leftDPadWasPressed = true;
             }
@@ -90,28 +124,18 @@ public class PlayerController : MonoBehaviour
                 m_rightDPadWasPressed = true;
             }
 
-            if(state.DPad.Left == ButtonState.Released && m_leftDPadWasPressed)
+            if (state.DPad.Left == ButtonState.Released && m_leftDPadWasPressed)
             {
                 m_leftDPadWasPressed = false;
-                GetComponent<WeaponManager>().PrevWeapon();
+                manager.PrevWeapon();
             }
 
-            if(state.DPad.Right == ButtonState.Released && m_rightDPadWasPressed)
+            if (state.DPad.Right == ButtonState.Released && m_rightDPadWasPressed)
             {
                 m_rightDPadWasPressed = false;
-                GetComponent<WeaponManager>().NextWeapon();
+                manager.NextWeapon();
             }
         }
-    }
-
-    void ProcessMovement(GamePadState state)
-    {
-        Vector3 leftStick = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y, 0.0f);
-        Vector3 rightStick = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y, 0.0f);
-
-        Vector3 pos = gameObject.transform.position;
-        pos += leftStick * MovementSpeed * Time.deltaTime;
-        gameObject.transform.position = pos;
     }
 
     void SetGunEnabled(bool enabled)
@@ -127,24 +151,8 @@ public class PlayerController : MonoBehaviour
 
             if(zone.IsInsidePickupArea(playerCollider))
             {
-                GameObject supply = null;
-
-                switch (zone.Type)
-                {
-                    case SupplyZone.SupplyType.Ammo:
-                        supply = Instantiate(AmmoSupplyPrefab);
-                        break;
-
-                    case SupplyZone.SupplyType.Fuel:
-                        supply = Instantiate(FuelSupplyPrefab);
-                        break;
-
-                    default:
-                        Debug.Assert(false, "Unknown supply type");
-                        break;
-                }
-
-                supply.GetComponent<Supply>().Type = zone.Type;
+                GameObject supply = Instantiate(SupplyPrefab);
+                supply.GetComponent<Supply>().SetType(zone.Type);
                 supply.tag = "Supply";
 
                 TakeSupply(supply);
@@ -180,22 +188,23 @@ public class PlayerController : MonoBehaviour
 
     void TakeSupply(GameObject supply)
     {
-        Transform socket = gameObject.transform.Find("SupplySocket");
-        supply.transform.SetParent(socket);
-        supply.transform.localPosition = Vector3.zero;
-        supply.GetComponent<Supply>().IsTaken = true;
-
         m_supply = supply;
+        m_supply.GetComponent<Supply>().Take(Vector3.zero, gameObject.transform.Find("SupplySocket"));
         SetGunEnabled(false);
     }
 
-    void DropSupply()
+    void DropSupply(GamePadState state)
     {
         if(m_supply != null)
         {
-            m_supply.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 350.0f);
-            m_supply.GetComponent<Supply>().IsTaken = false;
-            m_supply.transform.SetParent(null);
+            Vector3 stick = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y, 0.0f);
+
+            if(stick == Vector3.zero)
+            {
+                stick = Vector3.right;
+            }
+
+            m_supply.GetComponent<Supply>().Drop(stick.normalized * 350.0f);
             m_supply = null;
 
             SetGunEnabled(true);

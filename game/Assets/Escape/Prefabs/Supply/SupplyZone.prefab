@@ -151,12 +151,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8795e3617e410304f93572f9769d6c79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33f6c595775eabd4faccfa1021e91469, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -212,3 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  AmmoOutfitPrefab: {fileID: 6411311465048630545, guid: acb43594ffb72e040a146bb4ff5c7f12,
+    type: 3}
+  FuelOutfitPrefab: {fileID: 3176011012567534007, guid: ae0010a94e2ffc746b079ba7c487285e,
+    type: 3}

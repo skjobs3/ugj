@@ -12,12 +12,29 @@ public class SupplyZone : MonoBehaviour
 
     public SupplyType Type = SupplyType.Ammo;
 
+    public GameObject AmmoOutfitPrefab;
+    public GameObject FuelOutfitPrefab;
+
     private List<PlayerController> m_activePlayers = new List<PlayerController>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        switch (Type)
+        {
+            case SupplyType.Ammo:
+                Instantiate(AmmoOutfitPrefab, gameObject.transform);
+                break;
+
+            case SupplyType.Fuel:
+                Instantiate(FuelOutfitPrefab, gameObject.transform);
+                break;
+
+            default:
+                Debug.Assert(false, "Unknown supply type");
+                break;
+        }
+
     }
 
     // Update is called once per frame

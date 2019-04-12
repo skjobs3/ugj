@@ -5,10 +5,10 @@
         public class HealthBar : UnityEngine.MonoBehaviour
         {
             [UnityEngine.SerializeField]
-            private UnityEngine.RectTransform _Current;
+            private UnityEngine.RectTransform _Current = null;
 
             [UnityEngine.SerializeField]
-            private UnityEngine.RectTransform _Total;
+            private UnityEngine.RectTransform _Total = null;
 
             [UnityEngine.SerializeField]
             private float _Value;

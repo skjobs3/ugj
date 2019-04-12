@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde09512c49b74841a723bc6a7380d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Index: 0
   MachinegunPrefab: {fileID: 288430714040485741, guid: 14e8691131a93c141b463646748f5fec,
     type: 3}
   ShotgunPrefab: {fileID: 459704580564754817, guid: caf8e6dce5704e7458ecf399dc9a3d40,
@@ -179,8 +180,8 @@ MonoBehaviour:
   Index: 0
   FireBehaviorPrefab: {fileID: 5710337082849672739, guid: d86f87ae16a988147b6deaa2d84d5e96,
     type: 3}
-  AmmoSupplyPrefab: {fileID: 0}
-  FuelSupplyPrefab: {fileID: 0}
+  SupplyPrefab: {fileID: 1532574659197032014, guid: 11c822ce53fecc14ba9ec1a732752113,
+    type: 3}
   m_supplyZones: []
 --- !u!50 &8399119874387609042
 Rigidbody2D:

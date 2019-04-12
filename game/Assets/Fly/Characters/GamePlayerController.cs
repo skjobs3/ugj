@@ -42,9 +42,9 @@ public class GamePlayerController : MonoBehaviour
 
     // Start is called before the first frame update
 
-    public int getPlayerIndex()
+    public XInputDotNetPure.PlayerIndex getPlayerIndex()
     {
-        return index;
+        return (XInputDotNetPure.PlayerIndex)index;
     }
 
     void ShowProgressBar()

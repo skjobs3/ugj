@@ -8,21 +8,24 @@
         [UnityEngine.SerializeField]
         private int _DurabilityMax = 10000;
 
-        [UnityEngine.SerializeField]
-        private float _SpeedBoost = 1.0f;
+        //[UnityEngine.SerializeField]
+        //private float _SpeedBoost = 1.0f;
 
         [UnityEngine.SerializeField]
         private Fly.UI.HealthBar _HealthBar = null;
 
         private void Update()
         {
-            if (this._DurabilityMax == 0f)
+            if (this._HealthBar)
             {
-                UnityEngine.GameObject.Destroy(this.gameObject);
-                return;
-            }
+                if (this._DurabilityMax == 0f)
+                {
+                    UnityEngine.GameObject.Destroy(this.gameObject);
+                    return;
+                }
 
-            this._HealthBar.Value = (float)this._DurabilityCurrent / (float)this._DurabilityMax;
+                this._HealthBar.Value = (float)this._DurabilityCurrent / (float)this._DurabilityMax;
+            }
         }
 
         public void Damage(int Value)

@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour
         set
         {
             m_weaponActive = value;
-            //#TODO:
+            m_activeWeapon.SetActive(m_weaponActive);
         }
     }
 
@@ -65,7 +65,7 @@ public class WeaponManager : MonoBehaviour
     {
         GamePadState state = GamePad.GetState(Index);
 
-        if (!state.IsConnected)
+        if (!state.IsConnected || !IsWeaponActive)
         {
             return;
         }
@@ -94,8 +94,11 @@ public class WeaponManager : MonoBehaviour
 
     public void SetWeapon(WeaponType type)
     {
+        Quaternion rotation = Quaternion.identity;
+
         if (m_activeWeapon != null)
         {
+            rotation = m_activeWeapon.transform.rotation;
             Destroy(m_activeWeapon);
             m_activeWeapon = null;
         }
@@ -119,6 +122,8 @@ public class WeaponManager : MonoBehaviour
                 Debug.Assert(false, "Unknown weapon type");
                 break;
         }
+
+        m_activeWeapon.transform.rotation = rotation;
     }
 
     public void NextWeapon()
