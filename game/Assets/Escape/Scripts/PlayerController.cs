@@ -15,7 +15,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         m_gun = Instantiate(GunPrefab, transform);
-        m_gun.GetComponent<PlayerGunController>().Index = Index;
+
+        PlayerGunController gun = m_gun.GetComponent<PlayerGunController>();
+        gun.Index = Index;
+        gun.FireRate = 10;
+        gun.RotationSpeed = 290.0f;
     }
 
     // Update is called once per frame
@@ -35,8 +39,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 leftStick = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y, 0.0f);
         Vector3 rightStick = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y, 0.0f);
-
-        Debug.Log("X:" + leftStick.x.ToString() + " Y:" + leftStick.y.ToString());
 
         Vector3 pos = gameObject.transform.position;
         pos += leftStick * Speed * Time.deltaTime;
