@@ -78,11 +78,12 @@
         private int AreaGetHandler(GamePlayerController Player, int Value)
         {
             int Amount = System.Math.Min(Value, this._Max);
-            Amount = System.Math.Max(Value, this._Current);
-            Amount = System.Math.Max(Amount, this._Limit);
+            Amount = System.Math.Min(Amount, this._Limit);
 
             if (this._CurrentIsInfinite == false)
             {
+                Amount = System.Math.Min(Amount, this._Current);
+
                 this._Current -= Amount;
             }           
 
