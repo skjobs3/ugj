@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,12 +19,13 @@ public class GameManager : MonoBehaviour
     {
         if(IsPlayerDead(Player1) || IsPlayerDead(Player2))
         {
-            //#TODO: Death
+            TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene("Transition/GameOver");
         }
     }
 
-    bool IsPlayerDead(PlayerController p1)
+    bool IsPlayerDead(PlayerController p)
     {
-        return p1.HP <= 0;
+        return p.HP <= 0;
     }
 }
