@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8276556869281706244}
   - component: {fileID: 8276556869281706245}
   - component: {fileID: 7769719385049102288}
-  - component: {fileID: 8091581268919289808}
+  - component: {fileID: 6716671902264127595}
   m_Layer: 0
   m_Name: BoxObstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &8091581268919289808
+--- !u!61 &6716671902264127595
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
