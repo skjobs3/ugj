@@ -38,7 +38,7 @@ public class GamePlayerController : MonoBehaviour
     private const int WantedCount = 20;
     private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
-    private System.Collections.Generic.List<SpriteRenderer> Buttons;
+    private System.Collections.Generic.List<SpriteRenderer> Buttons = new System.Collections.Generic.List<SpriteRenderer>();
 
     [SerializeField]
     public SpriteRenderer ProgressBarBg;

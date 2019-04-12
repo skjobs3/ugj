@@ -5,13 +5,13 @@
         public class ProgressBar : UnityEngine.MonoBehaviour
         {
             [UnityEngine.SerializeField]
-            private UnityEngine.RectTransform _Path;
+            private UnityEngine.RectTransform _Path = null;
 
             [UnityEngine.SerializeField]
-            private UnityEngine.RectTransform _Ship;
+            private UnityEngine.RectTransform _Ship = null;
 
             [UnityEngine.SerializeField]
-            private UnityEngine.RectTransform _Enemy;
+            private UnityEngine.RectTransform _Enemy = null;
 
             [UnityEngine.SerializeField]
             private float _EnemyProgress;
