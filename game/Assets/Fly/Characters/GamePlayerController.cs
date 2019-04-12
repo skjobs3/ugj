@@ -7,6 +7,7 @@ public class GamePlayerController : MonoBehaviour
 {
     public int index = 0;
     public float SpeedMultiplier = 0.1f;
+    public bool LockedY = false;
     private bool m_isInAction = false;
 
     enum GameAction
@@ -91,7 +92,10 @@ public class GamePlayerController : MonoBehaviour
         {
             var pos = this.gameObject.transform.position;
             pos.x += m_gamePadState.ThumbSticks.Left.X * SpeedMultiplier;
-            pos.y += m_gamePadState.ThumbSticks.Left.Y * SpeedMultiplier;
+            if (!LockedY)
+            {
+                pos.y += m_gamePadState.ThumbSticks.Left.Y * SpeedMultiplier;
+            }
             this.gameObject.transform.position = pos;
         }
 

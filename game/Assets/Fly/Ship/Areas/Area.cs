@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Fly.Ship.Areas
+﻿namespace Fly.Ship.Areas
 {
     public abstract class Area : UnityEngine.MonoBehaviour
     {
