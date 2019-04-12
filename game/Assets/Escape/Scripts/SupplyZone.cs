@@ -61,4 +61,9 @@ public class SupplyZone : MonoBehaviour
     {
         gameObject.transform.Find("Hint").gameObject.SetActive(visible);
     }
+
+    public bool IsInsidePickupArea(Collider2D collider)
+    {
+        return collider.IsTouching(gameObject.GetComponent<Collider2D>());
+    }
 }

@@ -31,4 +31,10 @@ public class Supply : MonoBehaviour
     {
         
     }
+
+    public bool IsInsidePickupArea(Collider2D collider)
+    {
+        return collider.IsTouching(gameObject.GetComponent<CircleCollider2D>()) || 
+            collider.IsTouching(gameObject.GetComponent<BoxCollider2D>());
+    }
 }

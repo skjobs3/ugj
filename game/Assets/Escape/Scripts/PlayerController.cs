@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             var playerCollider = gameObject.GetComponent<Collider2D>();
 
-            if(zone.GetComponent<Collider2D>().IsTouching(playerCollider))
+            if(zone.IsInsidePickupArea(playerCollider))
             {
                 GameObject supply = null;
 
@@ -139,10 +139,9 @@ public class PlayerController : MonoBehaviour
         {
             var playerCollider = gameObject.GetComponent<Collider2D>();
 
-            if (supply.GetComponent<Collider2D>().IsTouching(playerCollider))
+            if (supply.GetComponent<Supply>().IsInsidePickupArea(playerCollider))
             {
-                Debug.Log("Pickuing up supply from ground");
-                //#TODO: Pickup this supply
+                TakeSupply(supply);
                 return true;
             }
         }
