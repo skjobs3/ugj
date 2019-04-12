@@ -5,7 +5,9 @@ using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
+    public float DistanceToDropSupply;
     public float MovementSpeed;
+
     public PlayerIndex Index;
 
     public GameObject FireBehaviorPrefab;
@@ -59,7 +61,18 @@ public class PlayerController : MonoBehaviour
     {
         GamePadState state = GamePad.GetState(Index);
 
-        if(!state.IsConnected)
+        if (m_supply != null)
+        {
+            Vector3 p1 = gameObject.transform.position;
+            Vector3 p2 = m_supply.transform.position;
+
+            if ((p1 - p2).magnitude >= DistanceToDropSupply)
+            {
+                DropSupply(state);
+            }
+        }
+
+        if (!state.IsConnected)
         {
             return;
         }
@@ -206,7 +219,7 @@ public class PlayerController : MonoBehaviour
                 stick = Vector3.right;
             }
 
-            m_supply.GetComponent<Supply>().Drop(stick.normalized * 350.0f);
+            m_supply.GetComponent<Supply>().Drop(stick.normalized * 393350.0f);
             m_supply = null;
 
             SetGunEnabled(true);

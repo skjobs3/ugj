@@ -52,16 +52,18 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        string tag = collision.gameObject.tag;
+
+        if (tag == "Obstacle" || tag == "Supply")
         {
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (tag == "Player")
         {
             //#TODO: Disable friendly fire, for now: collision.gameObject.GetComponent<PlayerController>().Hit(5);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.tag == "Enemy")
+        else if (tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>().Hit(15);
             Destroy(gameObject);

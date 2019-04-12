@@ -176,13 +176,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce7d34c5e4b6c9489f214bc1cc64891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 0
+  DistanceToDropSupply: 2
+  MovementSpeed: 3
   Index: 0
   FireBehaviorPrefab: {fileID: 5710337082849672739, guid: d86f87ae16a988147b6deaa2d84d5e96,
     type: 3}
   SupplyPrefab: {fileID: 1532574659197032014, guid: 11c822ce53fecc14ba9ec1a732752113,
     type: 3}
-  m_supplyZones: []
 --- !u!50 &8399119874387609042
 Rigidbody2D:
   serializedVersion: 4
@@ -191,7 +191,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7753651180458340110}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -203,7 +203,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &7273762064028047313
 CircleCollider2D:
   m_ObjectHideFlags: 0
