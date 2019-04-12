@@ -134,6 +134,8 @@ MonoBehaviour:
     type: 3}
   _ProjectileSpawner: {fileID: 2753817102080966549}
   _DeviationMax: 45
+  _FireDelay: 0.25
+  _FireLast: 0
 --- !u!1001 &2210867678844355698
 PrefabInstance:
   m_ObjectHideFlags: 0

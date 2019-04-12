@@ -16,6 +16,12 @@
         [UnityEngine.SerializeField]
         private float _DeviationMax = 45.0f;
 
+        [UnityEngine.SerializeField]
+        private float _FireDelay = 1f;
+
+        [UnityEngine.SerializeField]
+        private float _FireLast = 0f;
+
         private new void Start()
         {
             base.Start();
@@ -72,11 +78,18 @@
             // Shooting
             if (this._ProjectileSpawner)
             {
-                if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Buttons.A == XInputDotNetPure.ButtonState.Pressed)
+                if (this._FireLast > this._FireDelay)
                 {
-                    UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);
+                    if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Buttons.A == XInputDotNetPure.ButtonState.Pressed)
+                    {
+                        UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);
+                    }
+
+                    this._FireLast = 0f;
                 }
             }
+
+            this._FireLast += UnityEngine.Time.deltaTime;
         }
 
         private bool AreaActivateHandler(GamePlayerController Player)
