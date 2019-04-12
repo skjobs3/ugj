@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7515968320809769924}
   - component: {fileID: 5747385360155732259}
+  - component: {fileID: 4873980354886015394}
   m_Layer: 0
   m_Name: AsteroidBig
   m_TagString: Untagged
@@ -79,3 +80,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4873980354886015394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802731400228111001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38184d3d311b0bd44adfd776b99e514c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Power: 50
+  garbageObjects:
+  - {fileID: 1062728097247324678, guid: 69910e7e1641ddb43942f1dd78c88c44, type: 3}
+  - {fileID: 5666926053307622825, guid: 70971a6f140e3334993a6a0df69e34cd, type: 3}
+  - {fileID: 5405406196189464280, guid: 4662b41ef68bd804589e5154edb75916, type: 3}
+  - {fileID: 5405406196189464280, guid: 4662b41ef68bd804589e5154edb75916, type: 3}
+  - {fileID: 1062728097247324678, guid: 69910e7e1641ddb43942f1dd78c88c44, type: 3}
+  - {fileID: 6640863037920864137, guid: 45e044f9dee11df48b16b813eeb8a628, type: 3}
+  - {fileID: 6640863037920864137, guid: 45e044f9dee11df48b16b813eeb8a628, type: 3}
+  - {fileID: 1062728097247324678, guid: 69910e7e1641ddb43942f1dd78c88c44, type: 3}
