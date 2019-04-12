@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public GameObject player1;
+    public GameObject player2;
+
     public float speed;
 
     void GotoZeroPoint()
@@ -31,7 +34,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPosition = new Vector3(0.0f, 0.0f, -1.0f);
+        Vector3 targetPosition = player1.transform.position;
         Vector3 directionVector = new Vector2(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y);
         SetLook(targetPosition, directionVector);
         if (GetComponent<Rigidbody2D>().velocity.magnitude < 0.5)
