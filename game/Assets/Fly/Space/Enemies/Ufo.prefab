@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Power: 50
+  Health: 2000
   garbageObjects:
   - {fileID: 1062728097247324678, guid: 69910e7e1641ddb43942f1dd78c88c44, type: 3}
   - {fileID: 5666926053307622825, guid: 70971a6f140e3334993a6a0df69e34cd, type: 3}

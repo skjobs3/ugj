@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fly.Ship.Modules.Projectile;
 
 public class Exploud : MonoBehaviour
 {
@@ -19,8 +20,17 @@ public class Exploud : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D otherObj)
+    void OnTriggerEnter2D(Collider2D otherObj)
     {
+        Debug.Log("Triggered");
+        var projectile = otherObj.gameObject.GetComponent<Projectile>();
+        if (!projectile)
+        {
+            return;
+        }
+
+        Health -= projectile.GetDamage();
+
         if (Health <= 0)
         {
             foreach (GameObject garbObjType in garbageObjects)

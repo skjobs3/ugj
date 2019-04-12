@@ -23,5 +23,10 @@
         {
             UnityEngine.GameObject.Destroy(this.gameObject);
         }
+
+        public int GetDamage()
+        {
+            return _Damage;
+        }
     }
 }
