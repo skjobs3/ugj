@@ -127,8 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 0
   Index: 0
-  FireBehaviorPrefab: {fileID: 0}
-  CarryBehaviorPrefab: {fileID: 0}
+  FireBehaviorPrefab: {fileID: 5710337082849672739, guid: d86f87ae16a988147b6deaa2d84d5e96,
+    type: 3}
+  CarryBehaviorPrefab: {fileID: 3352675583349153863, guid: 7a707779bdf2f124e925c88a7db30a73,
+    type: 3}
+  m_supplyZones: []
 --- !u!50 &8399119874387609042
 Rigidbody2D:
   serializedVersion: 4
