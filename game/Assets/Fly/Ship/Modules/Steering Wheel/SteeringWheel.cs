@@ -4,6 +4,14 @@
     {
         private System.Collections.Generic.HashSet<GamePlayerController> _Players = new System.Collections.Generic.HashSet<GamePlayerController>();
 
+        public System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Players
+        {
+            get
+            {
+                return this._Players;
+            }
+        }
+
         protected void Start()
         {
             foreach (Fly.Ship.Areas.Area Area in this._Areas)
@@ -11,7 +19,7 @@
                 Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
                 if (Activator)
                 {
-                    Activator.ActivateEvent += this.AreaActivateHandler;
+                    Activator.ActivateEvent   += this.AreaActivateHandler;
                     Activator.DeactivateEvent += this.AreaDeactivateHandler;
                     continue;
                 }
