@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
-public class PlayerGunController : MonoBehaviour
+public class PlayeFireBehavior : MonoBehaviour
 {
     private PlayerIndex m_index = PlayerIndex.One;
     public PlayerIndex Index

@@ -5,21 +5,17 @@ using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
-    public float Speed;
+    public float MovementSpeed;
     public PlayerIndex Index;
-    public GameObject GunPrefab;
+    public GameObject FireBehaviorPrefab;
+    public GameObject CarryBehaviorPrefab;
 
-    private GameObject m_gun;
+    private GameObject m_behavior;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_gun = Instantiate(GunPrefab, transform);
-
-        PlayerGunController gun = m_gun.GetComponent<PlayerGunController>();
-        gun.Index = Index;
-        gun.FireRate = 10;
-        gun.RotationSpeed = 290.0f;
+        SetFireBehavior();
     }
 
     // Update is called once per frame
@@ -41,7 +37,23 @@ public class PlayerController : MonoBehaviour
         Vector3 rightStick = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y, 0.0f);
 
         Vector3 pos = gameObject.transform.position;
-        pos += leftStick * Speed * Time.deltaTime;
+        pos += leftStick * MovementSpeed * Time.deltaTime;
         gameObject.transform.position = pos;
+    }
+
+    void SetFireBehavior()
+    {
+        Transform socket = transform.Find("FireBehaviorSocket");
+        m_behavior = Instantiate(FireBehaviorPrefab, socket);
+
+        PlayeFireBehavior gun = m_behavior.GetComponent<PlayeFireBehavior>();
+        gun.Index = Index;
+        gun.FireRate = 10;
+        gun.RotationSpeed = 290.0f;
+    }
+
+    void SetCarryBehavior()
+    {
+
     }
 }
