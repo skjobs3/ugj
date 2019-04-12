@@ -63,6 +63,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Enemy")
         {
+            collision.gameObject.GetComponent<EnemyController>().Hit(15);
             Destroy(gameObject);
         }
     }
