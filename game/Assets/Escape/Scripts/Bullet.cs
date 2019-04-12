@@ -49,4 +49,21 @@ public class Bullet : MonoBehaviour
         pos += m_direction * m_speed * Time.deltaTime;
         gameObject.transform.position = pos;
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
+            //#TODO: Disable friendly fire, for now: collision.gameObject.GetComponent<PlayerController>().MakeDamage();
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

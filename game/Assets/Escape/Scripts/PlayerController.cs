@@ -30,6 +30,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private int m_hp = 100;
+    public int HP
+    {
+        get
+        {
+            return m_hp;
+        }
+    }
+
     private GameObject m_supply;
 
     private bool m_leftDPadWasPressed = false;
@@ -191,6 +200,12 @@ public class PlayerController : MonoBehaviour
 
             SetGunEnabled(true);
         }
+    }
+
+    public void MakeDamage(int count)
+    {
+        m_hp -= count;
+        //#TODO: Check death conditions
     }
 }
 
