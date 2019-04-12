@@ -5,8 +5,8 @@
         [UnityEngine.SerializeField]
         private GamePlayerController _Player = null;
 
-        [UnityEngine.SerializeField]
-        private float _DeviationCurrent = 0.0f;
+        //[UnityEngine.SerializeField]
+        //private float _DeviationCurrent = 0.0f;
 
         [UnityEngine.SerializeField]
         private float _DeviationMax = 45.0f;
@@ -39,14 +39,16 @@
 
             UnityEngine.Vector3 Euler = new UnityEngine.Vector3(0, 0, 0);
 
-            if (true)
+            // Gamepad
             {
                 //float InputX = XInputDotNetPure.GamePad.GetState(0).ThumbSticks.Left.X;
                 float InputY = XInputDotNetPure.GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y;
 
                 Euler.z = this._DeviationMax * InputY;
             }
-            else
+            
+            /*
+            // Mouse
             {
                 UnityEngine.Vector3 Cursor = UnityEngine.Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
                 UnityEngine.Vector3 Direction = (Cursor - this.transform.position).normalized;
@@ -54,6 +56,7 @@
                 Euler.z = UnityEngine.Mathf.Atan2(Direction.y, Direction.x) * UnityEngine.Mathf.Rad2Deg;
                 Euler.z = UnityEngine.Mathf.Clamp(Euler.z, -this._DeviationMax, this._DeviationMax);
             }
+            */
             
             this.transform.rotation = UnityEngine.Quaternion.Euler(Euler);
         }
