@@ -6,6 +6,14 @@ using XInputDotNetPure;
 
 public class PlayeFireBehavior : MonoBehaviour
 {
+    public enum WeaponType
+    {
+        Machinegun,
+        Shotgun
+    }
+
+    public GameObject MachinegunPrefab;
+    public GameObject ShotgunPrefab;
     public GameObject BulletPrefab;
 
     private PlayerIndex m_index = PlayerIndex.One;
@@ -17,30 +25,17 @@ public class PlayeFireBehavior : MonoBehaviour
         }
     }
 
-    private float m_rotationSpeed = 0.0f;
-    public float RotationSpeed
-    {
-        set
-        {
-            m_rotationSpeed = value;
-        }
-    }
+    private WeaponType m_weaponType = WeaponType.Machinegun;
 
-    public int FireRate
-    {
-        set
-        {
-            m_fireInterval = 1.0f / (float)value;
-        }
-    }
-
+    private float m_rotationSpeed = 290.0f;
     private float m_fireInterval = 0.0f;
     private float m_lastFireStamp = 0;
 
-    // Start is called before the first frame update
+    private GameObject m_activeWeapon;
+
     void Start()
     {
-        
+        SetWeapon(WeaponType.Machinegun);
     }
 
     // Update is called once per frame
@@ -62,7 +57,7 @@ public class PlayeFireBehavior : MonoBehaviour
 
             float angle = Mathf.Atan2(stick.y, stick.x) * Mathf.Rad2Deg;
             Quaternion targetQuat = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetQuat, m_rotationSpeed * Time.deltaTime);
+            m_activeWeapon.transform.rotation = Quaternion.RotateTowards(m_activeWeapon.transform.rotation, targetQuat, m_rotationSpeed * Time.deltaTime);
         }
 
         // Fire
@@ -80,9 +75,52 @@ public class PlayeFireBehavior : MonoBehaviour
         Transform fireSocket = transform.Find("FireSocket");
         Transform buttSocket = transform.Find("ButtSocket");
 
-        Bullet bullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
-        bullet.transform.position = fireSocket.position;
-        bullet.Direction = (fireSocket.position - buttSocket.position).normalized;
-        bullet.Speed = 20;
+        switch (m_weaponType)
+        {
+            case WeaponType.Machinegun:
+                {
+                    Bullet bullet = Instantiate(BulletPrefab).GetComponent<Bullet>();
+                    bullet.transform.position = fireSocket.position;
+                    bullet.Direction = (fireSocket.position - buttSocket.position).normalized;
+                    bullet.Speed = 20;
+                }
+                break;
+
+            case WeaponType.Shotgun:
+                {
+                    //#TODO:
+                }
+                break;
+
+            default:
+                Debug.Assert(false, "Unknown weapon type");
+                break;
+        }
+    }
+
+    public void SetWeapon(WeaponType type)
+    {
+        if(m_activeWeapon != null)
+        {
+            Destroy(m_activeWeapon);
+            m_activeWeapon = null;
+        }
+
+        switch (type)
+        {
+            case WeaponType.Machinegun:
+                m_activeWeapon = Instantiate(MachinegunPrefab, gameObject.transform);
+                m_fireInterval = 1.0f / 20.0f;
+                break;
+
+            case WeaponType.Shotgun:
+                m_activeWeapon = Instantiate(ShotgunPrefab, gameObject.transform);
+                m_fireInterval = 1.0f;
+                break;
+
+            default:
+                Debug.Assert(false, "Unknown weapon type");
+                break;
+        }
     }
 }

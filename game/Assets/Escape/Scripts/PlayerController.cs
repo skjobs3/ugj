@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            return m_gun.activeSelf;
+            return GetComponent<WeaponManager>().IsWeaponActive;
         }
     }
 
@@ -30,21 +30,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private GameObject m_gun;
     private GameObject m_supply;
+
+    private bool m_leftDPadWasPressed = false;
+    private bool m_rightDPadWasPressed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform socket = transform.Find("GunSocket");
-        m_gun = Instantiate(FireBehaviorPrefab, socket);
 
-        PlayeFireBehavior gun = m_gun.GetComponent<PlayeFireBehavior>();
-        gun.Index = Index;
-        gun.FireRate = 10;
-        gun.RotationSpeed = 290.0f;
-
-        SetGunEnabled(true);
     }
 
     // Update is called once per frame
@@ -73,6 +67,32 @@ public class PlayerController : MonoBehaviour
                 DropSupply();
             }
         }
+
+        // Weapon changing logic
+        if(!IsCarryingSupply)
+        {
+            if(state.DPad.Left == ButtonState.Pressed)
+            {
+                m_leftDPadWasPressed = true;
+            }
+
+            if (state.DPad.Right == ButtonState.Pressed)
+            {
+                m_rightDPadWasPressed = true;
+            }
+
+            if(state.DPad.Left == ButtonState.Released && m_leftDPadWasPressed)
+            {
+                m_leftDPadWasPressed = false;
+                GetComponent<WeaponManager>().PrevWeapon();
+            }
+
+            if(state.DPad.Right == ButtonState.Released && m_rightDPadWasPressed)
+            {
+                m_rightDPadWasPressed = false;
+                GetComponent<WeaponManager>().NextWeapon();
+            }
+        }
     }
 
     void ProcessMovement(GamePadState state)
@@ -87,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
     void SetGunEnabled(bool enabled)
     {
-        m_gun.SetActive(enabled);
+        GetComponent<WeaponManager>().IsWeaponActive = enabled;
     }
 
     bool TakeSupplyFromZone()
@@ -173,3 +193,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+

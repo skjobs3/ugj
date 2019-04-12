@@ -70,6 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7753651180458340108}
   - component: {fileID: 7753651180458340107}
+  - component: {fileID: 2123330097312093144}
   - component: {fileID: 6867374836340812175}
   - component: {fileID: 8399119874387609042}
   - component: {fileID: 7273762064028047313}
@@ -144,6 +145,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2123330097312093144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7753651180458340110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde09512c49b74841a723bc6a7380d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MachinegunPrefab: {fileID: 288430714040485741, guid: 14e8691131a93c141b463646748f5fec,
+    type: 3}
+  ShotgunPrefab: {fileID: 459704580564754817, guid: caf8e6dce5704e7458ecf399dc9a3d40,
+    type: 3}
+  BulletPrefab: {fileID: 6203782668678386959, guid: 59f319c5ecf82dd488b97229a6b9e93a,
+    type: 3}
 --- !u!114 &6867374836340812175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +180,7 @@ MonoBehaviour:
   FireBehaviorPrefab: {fileID: 5710337082849672739, guid: d86f87ae16a988147b6deaa2d84d5e96,
     type: 3}
   AmmoSupplyPrefab: {fileID: 0}
-  FuelSuppltPrefab: {fileID: 0}
+  FuelSupplyPrefab: {fileID: 0}
   m_supplyZones: []
 --- !u!50 &8399119874387609042
 Rigidbody2D:
