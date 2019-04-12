@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Player")
         {
-            //#TODO: Disable friendly fire, for now: collision.gameObject.GetComponent<PlayerController>().MakeDamage();
+            //#TODO: Disable friendly fire, for now: collision.gameObject.GetComponent<PlayerController>().Hit();
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Enemy")

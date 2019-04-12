@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MakeDamage(int count)
+    public void Hit(int count)
     {
         m_hp -= count;
         //#TODO: Check death conditions
