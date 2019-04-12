@@ -9,7 +9,7 @@ public class GamePlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class GamePlayerController : MonoBehaviour
             playerIndex = PlayerIndex.Two;
         }
         GamePadState state = GamePad.GetState(playerIndex);
-       
+
         if (state.IsConnected)
         {
             var pos = this.gameObject.transform.position;
@@ -29,5 +29,10 @@ public class GamePlayerController : MonoBehaviour
             pos.y += state.ThumbSticks.Left.Y / 10.0f;
             this.gameObject.transform.position = pos;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Collision");
     }
 }
