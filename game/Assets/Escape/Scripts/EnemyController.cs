@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public GameObject rangedPainObject = null;
+    public float rangedAttackSpeed = 0.6f;
+
     public int HP = 100;
     public float attackDistance = 2.1f;
     public float speed;
@@ -17,6 +20,8 @@ public class EnemyController : MonoBehaviour
 
     private float iWillHitObstacleSpeedFactor = 1.0f;
     private const float maxAffraidOfObstacleDistance = 10.0f;
+
+    private float rangedAttackTimer = 0.0f;
 
     void updateHealth()
     {
@@ -72,6 +77,27 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void updateRangedAttack()
+    {
+        if (hasTarget && rangedPainObject)
+        {
+            rangedAttackTimer += Time.deltaTime;
+            if(rangedAttackTimer > rangedAttackSpeed)
+            {
+                Vector3 directionVector = new Vector2(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y);
+
+                rangedAttackTimer = 0.0f;
+
+                GameObject gameObject = Instantiate(rangedPainObject);
+                gameObject.transform.position = transform.position;
+
+                var beam = gameObject.GetComponent<RangedEnemyPainController>();
+                beam.direction = directionVector;
+
+            }
+        }
+    }
+
     void SetLook(Vector3 targetPosition, Vector3 directionVector)
     {
         float angle = Vector2.Angle(Vector2.up, directionVector);
@@ -117,8 +143,10 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("HIT!!!!!!!!!!!!!!");
-        HP -= 15;
+        if (other.gameObject.GetComponent<Bullet>() != null)
+        {
+            HP -= 15;
+        }
     }
 
     // Update is called once per frame
@@ -127,5 +155,6 @@ public class EnemyController : MonoBehaviour
         updateHealth();
         updateTarget();
         updateTransform();
+        updateRangedAttack();
     }
 }
