@@ -3,6 +3,11 @@
     public class Weapon : Fly.Ship.Modules.Container
     {
         [UnityEngine.SerializeField]
+        private UnityEngine.GameObject _ProjectilePrefab = null;
+
+        [UnityEngine.SerializeField]
+        private UnityEngine.GameObject _ProjectileSpawner = null;
+
         private GamePlayerController _Player = null;
 
         //[UnityEngine.SerializeField]
@@ -37,28 +42,40 @@
 
             XInputDotNetPure.PlayerIndex PlayerIndex = this._Player.getPlayerIndex();
 
-            UnityEngine.Vector3 Euler = new UnityEngine.Vector3(0, 0, 0);
-
-            // Gamepad
+            // Rotating
             {
-                //float InputX = XInputDotNetPure.GamePad.GetState(0).ThumbSticks.Left.X;
-                float InputY = XInputDotNetPure.GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y;
+                UnityEngine.Vector3 Euler = new UnityEngine.Vector3(0, 0, 0);
 
-                Euler.z = this._DeviationMax * InputY;
+                // Gamepad
+                {
+                    //float InputX = XInputDotNetPure.GamePad.GetState(0).ThumbSticks.Left.X;
+                    float InputY = XInputDotNetPure.GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y;
+
+                    Euler.z = this._DeviationMax * InputY;
+                }
+
+                /*
+                // Mouse
+                {
+                    UnityEngine.Vector3 Cursor = UnityEngine.Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
+                    UnityEngine.Vector3 Direction = (Cursor - this.transform.position).normalized;
+
+                    Euler.z = UnityEngine.Mathf.Atan2(Direction.y, Direction.x) * UnityEngine.Mathf.Rad2Deg;
+                    Euler.z = UnityEngine.Mathf.Clamp(Euler.z, -this._DeviationMax, this._DeviationMax);
+                }
+                */
+
+                this.transform.rotation = UnityEngine.Quaternion.Euler(Euler);
             }
-            
-            /*
-            // Mouse
+
+            // Shooting
+            if (this._ProjectileSpawner)
             {
-                UnityEngine.Vector3 Cursor = UnityEngine.Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
-                UnityEngine.Vector3 Direction = (Cursor - this.transform.position).normalized;
-
-                Euler.z = UnityEngine.Mathf.Atan2(Direction.y, Direction.x) * UnityEngine.Mathf.Rad2Deg;
-                Euler.z = UnityEngine.Mathf.Clamp(Euler.z, -this._DeviationMax, this._DeviationMax);
+                if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Buttons.A == XInputDotNetPure.ButtonState.Pressed)
+                {
+                    UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);
+                }
             }
-            */
-            
-            this.transform.rotation = UnityEngine.Quaternion.Euler(Euler);
         }
 
         private bool AreaActivateHandler(GamePlayerController Player)
