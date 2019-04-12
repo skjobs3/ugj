@@ -90,8 +90,8 @@ public class PlayerController : MonoBehaviour
         Vector3 pos = gameObject.transform.position;
         var newPos = pos + leftStick * MovementSpeed * Time.deltaTime;
 
-        newPos.x = Mathf.Clamp(newPos.x, cameraBounds.x, cameraBounds.width);
-        newPos.y = Mathf.Clamp(newPos.y, cameraBounds.y, cameraBounds.height);
+        newPos.x = Mathf.Clamp(newPos.x, cameraBounds.x, cameraBounds.x + cameraBounds.width);
+        newPos.y = Mathf.Clamp(newPos.y, cameraBounds.y, cameraBounds.y + cameraBounds.height);
 
         gameObject.transform.position = newPos;
     }
