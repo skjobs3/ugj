@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         bool obstacleOnTheWay = false;
-        Vector3 directionVector = new Vector2(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y);
+        Vector3 directionVector = new Vector3(targetPosition.x - transform.position.x, targetPosition.y - transform.position.y, transform.position.z);
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionVector);
         foreach(var hit in hits)
         {
