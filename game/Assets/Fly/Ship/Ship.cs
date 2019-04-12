@@ -1,25 +1,34 @@
-﻿using UnityEngine;
-
-namespace Fly.Ship
+﻿namespace Fly.Ship
 {
-    public class Ship : MonoBehaviour
+    public class Ship : UnityEngine.MonoBehaviour
     {
-        [SerializeField]
-        public int DurabilityCurrent;
+        [UnityEngine.SerializeField]
+        private int _DurabilityCurrent = 10000;
 
-        [SerializeField]
-        public int DurabilityMax;
+        [UnityEngine.SerializeField]
+        private int _DurabilityMax = 10000;
 
-        public int SpeedBoost;
+        [UnityEngine.SerializeField]
+        private float _SpeedBoost = 1.0f;
 
-        void Start()
+        [UnityEngine.SerializeField]
+        private Fly.UI.HealthBar _HealthBar = null;
+
+        private void Update()
         {
+            if (this._DurabilityMax == 0f)
+            {
+                UnityEngine.GameObject.Destroy(this.gameObject);
+                return;
+            }
 
+            this._HealthBar.Value = (float)this._DurabilityCurrent / (float)this._DurabilityMax;
         }
 
-        void Update()
+        public void Damage(int Value)
         {
-
+            this._DurabilityCurrent -= Value;
+            this._DurabilityCurrent = UnityEngine.Mathf.Clamp(this._DurabilityCurrent, 0, this._DurabilityMax);
         }
     }
 }
