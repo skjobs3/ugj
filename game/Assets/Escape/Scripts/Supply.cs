@@ -61,8 +61,8 @@ public class Supply : MonoBehaviour
 
     public bool IsInsidePickupArea(Collider2D collider)
     {
-        return collider.IsTouching(m_outfit.GetComponent<CircleCollider2D>()) || 
-            collider.IsTouching(m_outfit.GetComponent<BoxCollider2D>());
+        return collider.IsTouching(gameObject.GetComponent<CircleCollider2D>()) || 
+            collider.IsTouching(gameObject.GetComponent<BoxCollider2D>());
     }
 
     public void Take(Vector3 localPos, Transform socket)
@@ -76,7 +76,7 @@ public class Supply : MonoBehaviour
     public void Drop(Vector3 dir)
     {
         gameObject.transform.SetParent(null);
-        m_outfit.GetComponent<Rigidbody2D>().AddForce(dir);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(dir);
         m_isTaken = false;
     }
 }

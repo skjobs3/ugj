@@ -10,6 +10,7 @@ public class RefillZone : MonoBehaviour
     public GameObject FuelOutfitPrefab;
 
     private GameObject m_activeOutfit;
+    private List<Supply> m_activeSupplies = new List<Supply>();
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,49 @@ public class RefillZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        List<Supply> leftSupplies = new List<Supply>();
+        List<Supply> suppliesToRemove = new List<Supply>();
+
+        foreach(Supply supply in m_activeSupplies)
+        {
+            if(supply.Type == Type && !supply.IsTaken)
+            {
+                suppliesToRemove.Add(supply);
+            }
+            else
+            {
+                leftSupplies.Add(supply);
+            }
+        }
+
+        m_activeSupplies = leftSupplies;
+
+        foreach(Supply supply in suppliesToRemove)
+        {
+            //#TODO: Notify game rules
+            Destroy(supply.gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag != "Supply")
+        {
+            return;
+        }
+
+        Supply supply = collider.gameObject.GetComponent<Supply>();
+        m_activeSupplies.Add(supply);
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag != "Supply")
+        {
+            return;
+        }
+
+        Supply supply = collider.gameObject.GetComponent<Supply>();
+        m_activeSupplies.Remove(supply);
     }
 }
