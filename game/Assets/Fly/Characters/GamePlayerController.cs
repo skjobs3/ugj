@@ -51,11 +51,11 @@ public class GamePlayerController : MonoBehaviour
     {
         ProgressBarBg.enabled = true;
         ProgressBar.enabled = true;
+        m_progress = 0.0f;
     }
 
     void HideProgressBar()
     {
-        m_progress = 0.0f;
         ProgressBarBg.enabled = false;
         ProgressBar.enabled = false;
     }
@@ -103,7 +103,6 @@ public class GamePlayerController : MonoBehaviour
         {
             return;
         }
-
         switch (m_currentAction)
         {
             case GameAction.activatorTriggered:
@@ -111,25 +110,23 @@ public class GamePlayerController : MonoBehaviour
                     Buttons[A_ButtonIndex].enabled = true;
                     if (m_gamePadState.Buttons.A == ButtonState.Pressed)
                     {
-                        Buttons[A_ButtonIndex].enabled = false;
-                        m_currentAction = GameAction.activating;
-                        ShowProgressBar();
-
+                        if (m_activator.Activate(this) && !m_isInAction)
+                        {
+                            Buttons[A_ButtonIndex].enabled = false;
+                            Buttons[B_ButtonIndex].enabled = true;
+                            m_currentAction = GameAction.activating;
+                            m_isInAction = true;
+                        }
                     }
                 }
                 break;
             case GameAction.activating:
 
-                if (m_gamePadState.Buttons.A == ButtonState.Pressed)
+                if (m_gamePadState.Buttons.B == ButtonState.Pressed)
                 {
-                    m_progress += 0.01f;
-                    SetProgress(m_progress);
-                    m_isInAction = true;
-                    m_activator.Activate(this);
-                }
-                else
-                {
-                    HideProgressBar();
+                    //TODO: do something with visibility, etc.
+                    Buttons[B_ButtonIndex].enabled = false;
+                    m_activator.Deactivate(this);
                     m_currentAction = GameAction.activatorTriggered;
                     m_isInAction = false;
                 }
@@ -171,6 +168,7 @@ public class GamePlayerController : MonoBehaviour
                         HideProgressBar();
                         m_isInAction = false;
                     }
+
                 }
                 else
                 {
@@ -185,8 +183,15 @@ public class GamePlayerController : MonoBehaviour
                     {
                         Buttons[Y_ButtonIndex].enabled = false;
                         m_currentAction = GameAction.setting;
+                    if (m_setter.Kind == Fly.Ship.Resources.Kind.Fuel ||
+                        (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo && m_gettetAmount > 50))
+                    {
                         ShowProgressBar();
-
+                    }
+                    else
+                    {
+                        m_progress = 0.0f;
+                    }
                 }
                 break;
             case GameAction.setting:
@@ -194,16 +199,23 @@ public class GamePlayerController : MonoBehaviour
                 {
                     m_isInAction = true;
                     m_progress += 0.01f;
-                    int amount = m_gettetAmount -= WantedCount;
 
-                    if (amount >= 0)
+                    if (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo)
                     {
-                        m_setter.Set(this, WantedCount);
+                        int amount = m_gettetAmount -= WantedCount;
+                        if (amount >= 0)
+                        {
+                            m_setter.Set(this, WantedCount);
+                        }
+                        else
+                        {
+                            m_gettetAmount = 0;
+                            m_progress = 1.0f;
+                        }
                     }
                     else
                     {
-                        m_gettetAmount = 0;
-                        m_progress = 1.0f;
+                        m_setter.Set(this, WantedCount);
                     }
                     SetProgress(m_progress);
 
@@ -234,6 +246,7 @@ public class GamePlayerController : MonoBehaviour
         Buttons[A_ButtonIndex].enabled = false;
         Buttons[Y_ButtonIndex].enabled = false;
         Buttons[X_ButtonIndex].enabled = false;
+        Buttons[B_ButtonIndex].enabled = false;
         Fly.Ship.Areas.Getter Getter = Area as Fly.Ship.Areas.Getter;
         if (Getter)
         {
