@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
         minCameraY = -maxWidth + width;
     }
 
-    Rect getCameraBounds()
+    public Rect getCameraBounds()
     {
         Rect bounds = new Rect();
 
@@ -43,9 +43,9 @@ public class CameraController : MonoBehaviour
         float width = height * cam.aspect;
 
         bounds.x = cameraPosition.x - width;
-        bounds.width = bounds.x + width * 2.0f;
+        bounds.width = width * 2.0f;
         bounds.y = cameraPosition.y - height;
-        bounds.height = bounds.y + height * 2.0f;
+        bounds.height = height * 2.0f;
 
         return bounds;
     }

@@ -6,6 +6,7 @@ using XInputDotNetPure;
 public class GamePlayerController : MonoBehaviour
 {
     public int index = 0;
+    public float SpeedMultiplier = 0.1f;
     private bool m_isInAction = false;
 
     enum GameAction
@@ -30,8 +31,8 @@ public class GamePlayerController : MonoBehaviour
     private Fly.Ship.Areas.Getter m_getter = null;
     private Fly.Ship.Areas.Setter m_setter = null;
     private Fly.Ship.Areas.Activator m_activator = null;
-    private const int WantedCount = 100;
-
+    private const int WantedCount = 20;
+    private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons;
 
@@ -89,8 +90,8 @@ public class GamePlayerController : MonoBehaviour
         if (!m_isInAction)
         {
             var pos = this.gameObject.transform.position;
-            pos.x += m_gamePadState.ThumbSticks.Left.X / 10.0f;
-            pos.y += m_gamePadState.ThumbSticks.Left.Y / 10.0f;
+            pos.x += m_gamePadState.ThumbSticks.Left.X * SpeedMultiplier;
+            pos.y += m_gamePadState.ThumbSticks.Left.Y * SpeedMultiplier;
             this.gameObject.transform.position = pos;
         }
 
@@ -238,6 +239,11 @@ public class GamePlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (m_currentAction != GameAction.none)
+        {
+            m_newCollisionWithoutExitingOld = true;
+        }
+
         Fly.Ship.Areas.Area Area = collision.gameObject.GetComponent<Fly.Ship.Areas.Area>();
         if (!Area)
         {
@@ -276,7 +282,23 @@ public class GamePlayerController : MonoBehaviour
 
     void TriggerExit()
     {
+        Buttons[X_ButtonIndex].enabled = false;
+        Buttons[Y_ButtonIndex].enabled = false;
+        Buttons[A_ButtonIndex].enabled = false;
+        Buttons[B_ButtonIndex].enabled = false;
+  
+        if (m_newCollisionWithoutExitingOld)
+        {
+            m_newCollisionWithoutExitingOld = false;
+            return;
+        }
+
         m_currentAction = GameAction.none;
+        if (m_activator)
+        {
+            m_activator.Deactivate(this);
+        }
+        m_isInAction = false;
         m_activator = null;
         m_getter = null;
         m_setter = null;
@@ -284,35 +306,7 @@ public class GamePlayerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        Fly.Ship.Areas.Area Area = collision.gameObject.GetComponent<Fly.Ship.Areas.Area>();
-        if (!Area)
-        {
-            return;
-        }
-        
-        Fly.Ship.Areas.Getter Getter = Area as Fly.Ship.Areas.Getter;
-        if (Getter)
-        {
-            Buttons[X_ButtonIndex].enabled = false;
-            TriggerExit();
-            return;
-        }
-        
-        Fly.Ship.Areas.Setter Setter = Area as Fly.Ship.Areas.Setter;
-        if (Setter)
-        {
-            Buttons[Y_ButtonIndex].enabled = false;
-            TriggerExit();
-            return;
-        }
-        
-        Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
-        if (Activator)
-        {
-            Buttons[A_ButtonIndex].enabled = false;
-            TriggerExit();
-            return;
-        }
+        TriggerExit();
     }
 
 }
