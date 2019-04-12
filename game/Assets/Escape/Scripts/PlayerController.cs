@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     public GameObject FireBehaviorPrefab;
     public GameObject SupplyPrefab;
 
-    public List<SupplyZone> m_supplyZones;
-
     private Rect cameraBounds = new Rect(-100, -100, 200, 200);
 
     public void SetCameraBounds(Rect bounds)
@@ -145,13 +143,17 @@ public class PlayerController : MonoBehaviour
 
     bool TakeSupplyFromZone()
     {
-        foreach(SupplyZone zone in m_supplyZones)
+        var supplies = GameObject.FindGameObjectsWithTag("SupplyZone");
+
+        foreach (GameObject zoneGO in supplies)
         {
+            var zone = zoneGO.GetComponent<SupplyZone>();
             var playerCollider = gameObject.GetComponent<Collider2D>();
 
             if(zone.IsInsidePickupArea(playerCollider))
             {
                 GameObject supply = Instantiate(SupplyPrefab);
+                supply.transform.position = gameObject.transform.Find("SupplySocket").transform.position;
                 supply.GetComponent<Supply>().SetType(zone.Type);
                 supply.tag = "Supply";
 
@@ -189,7 +191,7 @@ public class PlayerController : MonoBehaviour
     void TakeSupply(GameObject supply)
     {
         m_supply = supply;
-        m_supply.GetComponent<Supply>().Take(Vector3.zero, gameObject.transform.Find("SupplySocket"));
+        m_supply.GetComponent<Supply>().Take(Vector3.zero, gameObject.transform);
         SetGunEnabled(false);
     }
 

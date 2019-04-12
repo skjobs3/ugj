@@ -68,7 +68,7 @@ public class Supply : MonoBehaviour
     public void Take(Vector3 localPos, Transform socket)
     {
         gameObject.transform.SetParent(socket);
-        gameObject.transform.localPosition = localPos;
+        //gameObject.transform.localPosition = localPos;
         
         m_isTaken = true;
     }

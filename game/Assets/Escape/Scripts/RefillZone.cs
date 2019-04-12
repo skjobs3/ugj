@@ -60,23 +60,23 @@ public class RefillZone : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag != "Supply")
+        /*if (collider.gameObject.tag != "Supply")
         {
             return;
         }
 
         Supply supply = collider.gameObject.GetComponent<Supply>();
-        m_activeSupplies.Add(supply);
+        m_activeSupplies.Add(supply);*/
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag != "Supply")
+        /*if (collider.gameObject.tag != "Supply")
         {
             return;
         }
 
         Supply supply = collider.gameObject.GetComponent<Supply>();
-        m_activeSupplies.Remove(supply);
+        m_activeSupplies.Remove(supply);*/
     }
 }
