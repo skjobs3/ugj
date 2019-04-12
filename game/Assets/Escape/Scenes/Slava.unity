@@ -412,7 +412,7 @@ PrefabInstance:
     - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
         type: 3}
       propertyPath: spawnInterval
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d14d689080a00459ea3774697d2532, type: 3}
@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
         type: 3}
       propertyPath: spawnInterval
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d14d689080a00459ea3774697d2532, type: 3}

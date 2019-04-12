@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public GameObject rangedPainObject = null;
     public float rangedAttackSpeed = 0.6f;
 
-    public int HP = 100;
+    public float HP = 100.0f;
     public float attackDistance = 2.1f;
     public float speed;
 
@@ -22,6 +22,11 @@ public class EnemyController : MonoBehaviour
     private const float maxAffraidOfObstacleDistance = 10.0f;
 
     private float rangedAttackTimer = 0.0f;
+
+    public void Hit(float damage)
+    {
+        HP -= damage;
+    }
 
     void updateHealth()
     {
@@ -138,14 +143,6 @@ public class EnemyController : MonoBehaviour
         if(!obstacleOnTheWay)
         {
             iWillHitObstacleSpeedFactor = 1.0f;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.GetComponent<Bullet>() != null)
-        {
-            HP -= 15;
         }
     }
 
