@@ -66,8 +66,18 @@
             }
 
             this._Player = Player;
-
             return true;
+        }
+
+        private bool AreaDeactivateHandler(GamePlayerController Player)
+        {
+            if (this._Player == Player)
+            {
+                this._Player = null;
+                return true;
+            }
+
+            return false;
         }
     }
 }
