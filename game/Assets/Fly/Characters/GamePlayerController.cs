@@ -26,6 +26,11 @@ public class GamePlayerController : MonoBehaviour
     private GameAction m_currentAction = GameAction.none;
     private GamePadState m_gamePadState;
     private float m_progress = 0.0f;
+    private int m_gettetAmount = 0;
+    private Fly.Ship.Areas.Getter m_getter = null;
+    private Fly.Ship.Areas.Setter m_setter = null;
+    private Fly.Ship.Areas.Activator m_activator = null;
+    private const int WantedCount = 100;
 
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons;
@@ -36,6 +41,11 @@ public class GamePlayerController : MonoBehaviour
     public SpriteRenderer ProgressBar;
 
     // Start is called before the first frame update
+
+    public int getPlayerIndex()
+    {
+        return index;
+    }
 
     void ShowProgressBar()
     {
@@ -115,6 +125,7 @@ public class GamePlayerController : MonoBehaviour
                     m_progress += 0.01f;
                     SetProgress(m_progress);
                     m_isInAction = true;
+                    m_activator.Activate(this);
                 }
                 else
                 {
@@ -138,9 +149,28 @@ public class GamePlayerController : MonoBehaviour
             case GameAction.getting:
                 if (m_gamePadState.Buttons.X == ButtonState.Pressed)
                 {
+                    if (m_progress == 0.0f)
+                    {
+                        m_gettetAmount = 0;
+                    }
                     m_isInAction = true;
                     m_progress += 0.01f;
                     SetProgress(m_progress);
+                    int result = m_getter.Get(this, WantedCount);
+                    if (result >= 0)
+                    {
+                        m_gettetAmount += result;
+                    }
+                    else
+                    {
+                        m_progress = 1.0f;
+                    }
+
+                    if (m_progress >= 1.0f)
+                    {
+                        HideProgressBar();
+                        m_isInAction = false;
+                    }
                 }
                 else
                 {
@@ -164,7 +194,24 @@ public class GamePlayerController : MonoBehaviour
                 {
                     m_isInAction = true;
                     m_progress += 0.01f;
+                    int amount = m_gettetAmount -= WantedCount;
+
+                    if (amount >= 0)
+                    {
+                        m_setter.Set(this, WantedCount);
+                    }
+                    else
+                    {
+                        m_gettetAmount = 0;
+                        m_progress = 1.0f;
+                    }
                     SetProgress(m_progress);
+
+                    if (m_progress >= 1.0f)
+                    {
+                        HideProgressBar();
+                        m_isInAction = false;
+                    }
                 }
                 else
                 {
@@ -191,7 +238,7 @@ public class GamePlayerController : MonoBehaviour
         if (Getter)
         {
             m_currentAction = GameAction.getterTriggered;
-            int amount = Getter.Get(this, 100);
+            m_getter = Getter;
             return;
         }
 
@@ -199,18 +246,27 @@ public class GamePlayerController : MonoBehaviour
         if (Setter)
         {
             m_currentAction = GameAction.setterTriggered;
-            Setter.Set(this, 100);
+            m_setter = Setter;
             return;
         }
 
         Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
         if (Activator)
         {
-            Activator.Activate(this);
+            m_activator = Activator;
+            //Activator.Activate(this);
             m_currentAction = GameAction.activatorTriggered;
             return;
         }
 
+    }
+
+    void TriggerExit()
+    {
+        m_currentAction = GameAction.none;
+        m_activator = null;
+        m_getter = null;
+        m_setter = null;
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -225,8 +281,7 @@ public class GamePlayerController : MonoBehaviour
         if (Getter)
         {
             Buttons[X_ButtonIndex].enabled = false;
-            m_currentAction = GameAction.none;
-
+            TriggerExit();
             return;
         }
         
@@ -234,7 +289,7 @@ public class GamePlayerController : MonoBehaviour
         if (Setter)
         {
             Buttons[Y_ButtonIndex].enabled = false;
-            m_currentAction = GameAction.none;
+            TriggerExit();
             return;
         }
         
@@ -242,7 +297,7 @@ public class GamePlayerController : MonoBehaviour
         if (Activator)
         {
             Buttons[A_ButtonIndex].enabled = false;
-            m_currentAction = GameAction.none;
+            TriggerExit();
             return;
         }
     }
