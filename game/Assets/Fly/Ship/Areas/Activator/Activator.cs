@@ -4,17 +4,17 @@ namespace Fly.Ship.Areas
 {
     public class Activator : Fly.Ship.Areas.Area
     {
-        public delegate void ActivateDelegate(GamePlayerController Player);
+        public delegate bool ActivateDelegate(GamePlayerController Player);
         public event ActivateDelegate ActivateEvent;
 
-        public void Activate(GamePlayerController Player)
+        public bool Activate(GamePlayerController Player)
         {
             if (this.ActivateEvent == null)
             {
-                return;
+                return false;
             }
 
-            this.ActivateEvent(Player);
+            return this.ActivateEvent(Player);
         }
     }
 }

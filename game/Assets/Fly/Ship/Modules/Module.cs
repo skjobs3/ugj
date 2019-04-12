@@ -31,9 +31,10 @@ namespace Fly.Ship.Modules
             }
         }
 
-        private void AreaActivateHandler(GamePlayerController Player)
+        private bool AreaActivateHandler(GamePlayerController Player)
         {
             UnityEngine.Debug.Log("Area: object \"" + this.gameObject.name + "\" react on Activate event");
+            return false;
         }
 
         private void AreaSetHandler(GamePlayerController Player, int Value)
