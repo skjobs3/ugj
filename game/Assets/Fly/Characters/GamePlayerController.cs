@@ -31,7 +31,7 @@ public class GamePlayerController : MonoBehaviour
     private Fly.Ship.Areas.Getter m_getter = null;
     private Fly.Ship.Areas.Setter m_setter = null;
     private Fly.Ship.Areas.Activator m_activator = null;
-    private const int WantedCount = 100;
+    private const int WantedCount = 20;
     private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons;
