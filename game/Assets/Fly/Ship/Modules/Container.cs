@@ -3,6 +3,9 @@
     public class Container : Fly.Ship.Modules.Module
     {
         [UnityEngine.SerializeField]
+        private Fly.UI.World.ProgressBar _ProgressBar = null;
+
+        [UnityEngine.SerializeField]
         private bool _CurrentIsInfinite = false;
 
         [UnityEngine.SerializeField]
@@ -20,7 +23,7 @@
         private bool _MaxIsInfinite = false;
 
         [UnityEngine.SerializeField]
-        private int _Max = 10000;
+        private int _Max = 20;
 
         public int Max
         {
@@ -31,7 +34,7 @@
         }
 
         [UnityEngine.SerializeField]
-        private int _Limit = 10000;
+        private int _Limit = 1;
 
         public int Limit
         {
@@ -41,12 +44,8 @@
             }
         }
 
-        private new void Start()
+        protected void Start()
         {
-            base.Start();
-
-            //
-
             foreach (Fly.Ship.Areas.Area Area in this._Areas)
             {
                 Fly.Ship.Areas.Getter Getter = Area as Fly.Ship.Areas.Getter;
@@ -65,29 +64,52 @@
             }
         }
 
-        private void AreaSetHandler(GamePlayerController Player, int Value)
+        public int Set(int Value)
         {
+            int Available = this._Max - this._Current;
+            Value = UnityEngine.Mathf.Clamp(Value, 0, this._Limit);
+            Value = UnityEngine.Mathf.Clamp(Value, 0, Available);
+
             this._Current += Value;
 
             if (this._MaxIsInfinite == false)
             {
-                this._Current = System.Math.Max(this._Current, this._Max);
+                this._Current = System.Math.Min(this._Current, this._Max);
             }
+
+            return Value;
         }
 
-        private int AreaGetHandler(GamePlayerController Player, int Value)
+        public int Get(int Value)
         {
-            int Amount = System.Math.Min(Value, this._Max);
-            Amount = System.Math.Min(Amount, this._Limit);
+            int Amount = UnityEngine.Mathf.Clamp(Value, 0, this._Limit);
 
             if (this._CurrentIsInfinite == false)
             {
                 Amount = System.Math.Min(Amount, this._Current);
 
                 this._Current -= Amount;
-            }           
+            }
 
             return Amount;
+        }
+
+        private int AreaSetHandler(GamePlayerController Player, int Value)
+        {
+            return this.Set(Value);
+        }
+
+        private int AreaGetHandler(GamePlayerController Player, int Value)
+        {
+            return this.Get(Value);
+        }
+
+        protected void Update()
+        {
+            if (this._ProgressBar)
+            {
+                this._ProgressBar.Value = (float)this._Current / (float)this._Max;
+            }
         }
     }
 }

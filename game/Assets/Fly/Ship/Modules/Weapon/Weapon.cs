@@ -22,7 +22,7 @@
         [UnityEngine.SerializeField]
         private float _FireLast = 0f;
 
-        private new void Start()
+        protected new void Start()
         {
             base.Start();
 
@@ -40,8 +40,10 @@
             }
         }
 
-        private void Update()
+        protected new void Update()
         {
+            base.Update();
+
             if (this._Player == null)
             {
                 return;
@@ -82,7 +84,14 @@
                 {
                     if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Buttons.A == XInputDotNetPure.ButtonState.Pressed)
                     {
-                        UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);
+                        if (this.Current > 0)
+                        {
+                            int Count = this.Get(1);
+                            if (Count > 0)
+                            {
+                                UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);
+                            }
+                        }
                     }
 
                     this._FireLast = 0f;

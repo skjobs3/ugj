@@ -15,17 +15,17 @@ namespace Fly.Ship.Areas
             }
         }
 
-        public delegate void SetDelegate(GamePlayerController Player, int Value);
+        public delegate int SetDelegate(GamePlayerController Player, int Value);
         public event SetDelegate SetEvent;
 
-        public void Set(GamePlayerController Player, int Value)
+        public int Set(GamePlayerController Player, int Value)
         {
             if (this.SetEvent == null)
             {
-                return;
+                return 0;
             }
 
-            this.SetEvent(Player, Value);
+            return this.SetEvent(Player, Value);
         }
     }
 }

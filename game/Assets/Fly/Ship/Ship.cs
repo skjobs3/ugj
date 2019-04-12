@@ -8,23 +8,30 @@
         [UnityEngine.SerializeField]
         private int _DurabilityMax = 10000;
 
+        [UnityEngine.SerializeField]
+        private int _FuelConsumption = 1;
+
         //[UnityEngine.SerializeField]
         //private float _SpeedBoost = 1.0f;
 
         [UnityEngine.SerializeField]
-        private Fly.UI.HealthBar _HealthBar = null;
+        Fly.Ship.Modules.Fuel _Fuel = null;
+
+        [UnityEngine.SerializeField]
+        Fly.Ship.Modules.SteeringWheel _SteeringWheel = null;
 
         private void Update()
         {
-            if (this._HealthBar)
+            if (this._Fuel)
             {
-                if (this._DurabilityMax == 0f)
+                int Factor = 1;
+
+                if (this._SteeringWheel)
                 {
-                    UnityEngine.GameObject.Destroy(this.gameObject);
-                    return;
+                    Factor = this._SteeringWheel.Players.Count;
                 }
 
-                this._HealthBar.Value = (float)this._DurabilityCurrent / (float)this._DurabilityMax;
+                this._Fuel.Get(this._FuelConsumption * Factor);
             }
         }
 
@@ -32,6 +39,11 @@
         {
             this._DurabilityCurrent -= Value;
             this._DurabilityCurrent = UnityEngine.Mathf.Clamp(this._DurabilityCurrent, 0, this._DurabilityMax);
+        }
+
+        public int getHealth()
+        {
+            return _DurabilityCurrent;
         }
     }
 }

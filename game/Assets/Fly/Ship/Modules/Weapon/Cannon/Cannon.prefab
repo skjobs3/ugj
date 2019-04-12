@@ -125,16 +125,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Areas: []
+  _ProgressBar: {fileID: 0}
   _CurrentIsInfinite: 0
   _Current: 0
   _MaxIsInfinite: 0
-  _Max: 10000
-  _Limit: 10000
+  _Max: 20
+  _Limit: 1
   _ProjectilePrefab: {fileID: 7621956443915992587, guid: 9d22504f3a7446843a2900b9447ec3cb,
     type: 3}
   _ProjectileSpawner: {fileID: 2753817102080966549}
   _DeviationMax: 45
-  _FireDelay: 0.25
+  _FireDelay: 0.2
   _FireLast: 0
 --- !u!1001 &2210867678844355698
 PrefabInstance:

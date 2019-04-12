@@ -1,6 +1,6 @@
 ﻿namespace Fly
 {
-    namespace UI
+    namespace UI.HUD
     {
         public class HealthBar : UnityEngine.MonoBehaviour
         {
