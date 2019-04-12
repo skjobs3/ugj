@@ -100,9 +100,10 @@ MonoBehaviour:
   healthBarOffsetY: 0.8
   rangedPainObject: {fileID: 0}
   rangedAttackSpeed: 0.6
-  HP: 100
+  hitPoints: 100
   attackDistance: 2.1
   speed: 0.8
+  hideHealthBarTime: 2
 --- !u!50 &8687559858671692561
 Rigidbody2D:
   serializedVersion: 4
@@ -115,7 +116,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1.6060606
+  m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

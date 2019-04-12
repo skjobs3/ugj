@@ -94,7 +94,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -138,6 +138,7 @@ MonoBehaviour:
   rangedPainObject: {fileID: 6483175528539169119, guid: 6fc0d80526c565d4bb6d2bbf7cd3428c,
     type: 3}
   rangedAttackSpeed: 1.2
-  HP: 70
+  hitPoints: 100
   attackDistance: 10
   speed: 2
+  hideHealthBarTime: 2
