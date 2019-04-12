@@ -9,9 +9,8 @@ public class PlayerController : MonoBehaviour
     public float MovementSpeed;
 
     public PlayerIndex Index;
-
-    public GameObject FireBehaviorPrefab;
     public GameObject SupplyPrefab;
+    public PlayerUIController UIController;
 
     private Rect cameraBounds = new Rect(-100, -100, 200, 200);
 
@@ -53,6 +52,16 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch (Index)
+        {
+            case PlayerIndex.One:
+                UIController.SetName("Player1");
+                break;
+
+            case PlayerIndex.Two:
+                UIController.SetName("Player2");
+                break;
+        }
 
     }
 
@@ -229,7 +238,7 @@ public class PlayerController : MonoBehaviour
     public void Hit(int count)
     {
         m_hp -= count;
-        //#TODO: Check death conditions
+        UIController.UpdateHP(m_hp, 100);
     }
 }
 
