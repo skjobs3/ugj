@@ -1,11 +1,6 @@
 ﻿namespace Fly.Ship.Modules
 {
-    public class Weapon : Fly.Ship.Module
+    public class Weapon : Fly.Ship.Modules.Container
     {
-        [UnityEngine.SerializeField]
-        private int AmmoCurrent;
-
-        [UnityEngine.SerializeField]
-        private int AmmoMax;
     }
 }

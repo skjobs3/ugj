@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fly.Ship
+namespace Fly.Ship.Modules
 {
     public class Module : UnityEngine.MonoBehaviour
     {
@@ -31,17 +31,17 @@ namespace Fly.Ship
             }
         }
 
-        protected void AreaActivateHandler(GamePlayerController Player)
+        private void AreaActivateHandler(GamePlayerController Player)
         {
             UnityEngine.Debug.Log("Area: object \"" + this.gameObject.name + "\" react on Activate event");
         }
 
-        protected void AreaSetHandler(GamePlayerController Player, int Value)
+        private void AreaSetHandler(GamePlayerController Player, int Value)
         {
             UnityEngine.Debug.Log("Area: object \"" + this.gameObject.name + "\" react on Set(" + Value + ") event");
         }
 
-        protected int AreaGetHandler(GamePlayerController Player, int Value)
+        private int AreaGetHandler(GamePlayerController Player, int Value)
         {
             UnityEngine.Debug.Log("Area: object \"" + this.gameObject.name + "\" react on Get(" + Value + ") event");
             return 1;
