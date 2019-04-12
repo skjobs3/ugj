@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableEnemy: {fileID: 0}
-  spawnInterval: 0
+  spawnInterval: 3
+  restrictedArea: {x: 23, y: 17}

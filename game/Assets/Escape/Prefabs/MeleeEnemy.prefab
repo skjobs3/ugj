@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8788245502318859774}
   - component: {fileID: 8727510741826200840}
   - component: {fileID: 8687559858671692561}
-  - component: {fileID: 8899379837515945981}
+  - component: {fileID: 8628994919603548492}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: MeleeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93ec41f64bfa246b1922192eae20c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 8788245502318859769}
-  player2: {fileID: 0}
+  HP: 100
   attackDistance: 2.1
   speed: 0.8
 --- !u!50 &8687559858671692561
@@ -119,7 +118,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &8899379837515945981
+--- !u!58 &8628994919603548492
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
-
+    public int HP = 100;
     public float attackDistance = 2.1f;
     public float speed;
+
+    private GameObject player1;
+    private GameObject player2;
 
     private bool hasTarget = false;
     private Vector3 targetPosition = new Vector3();
@@ -16,6 +17,14 @@ public class EnemyController : MonoBehaviour
 
     private float iWillHitObstacleSpeedFactor = 1.0f;
     private const float maxAffraidOfObstacleDistance = 10.0f;
+
+    void updateHealth()
+    {
+        if (HP < 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void updateTarget()
     {
@@ -78,6 +87,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player1 = GameObject.Find("Player1");
+        player2 = GameObject.Find("Player2");
     }
 
     void FixedUpdate()
@@ -104,10 +115,16 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("HIT!!!!!!!!!!!!!!");
+        HP -= 15;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        updateHealth();
         updateTarget();
         updateTransform();
     }
