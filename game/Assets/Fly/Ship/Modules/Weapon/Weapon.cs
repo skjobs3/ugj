@@ -27,7 +27,8 @@
                 Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
                 if (Activator)
                 {
-                    Activator.ActivateEvent += this.AreaActivateHandler;
+                    Activator.ActivateEvent   += this.AreaActivateHandler;
+                    Activator.DeactivateEvent += this.AreaDeactivateHandler;
                     continue;
                 }
             }
