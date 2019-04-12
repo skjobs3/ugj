@@ -18,11 +18,11 @@ namespace Fly.Ship.Areas
         public delegate int GetDelegate(GamePlayerController Player, int Value);
         public event GetDelegate GetEvent;
 
-        public int Get(GamePlayerController Player, int Request = 0)
+        public int Get(GamePlayerController Player, int Request)
         {
             if (this.GetEvent == null)
             {
-                return -1;
+                return 0;
             }
 
             return this.GetEvent(Player, Request);

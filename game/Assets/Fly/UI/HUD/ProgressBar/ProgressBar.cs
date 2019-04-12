@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fly
 {
-    namespace UI
+    namespace UI.HUD
     {
         public class ProgressBar : MonoBehaviour
         {

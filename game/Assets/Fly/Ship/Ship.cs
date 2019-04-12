@@ -12,7 +12,7 @@
         //private float _SpeedBoost = 1.0f;
 
         [UnityEngine.SerializeField]
-        private Fly.UI.HealthBar _HealthBar = null;
+        private Fly.UI.HUD.HealthBar _HealthBar = null;
 
         private void Update()
         {
