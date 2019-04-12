@@ -13,6 +13,13 @@ public class PlayerController : MonoBehaviour
 
     public List<SupplyZone> m_supplyZones;
 
+    private Rect cameraBounds = new Rect(-100, -100, 200, 200);
+
+    public void SetCameraBounds(Rect bounds)
+    {
+        cameraBounds = bounds;
+    }
+
     public bool IsAbleToTakeSupply
     {
         get
@@ -70,8 +77,12 @@ public class PlayerController : MonoBehaviour
         Vector3 rightStick = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y, 0.0f);
 
         Vector3 pos = gameObject.transform.position;
-        pos += leftStick * MovementSpeed * Time.deltaTime;
-        gameObject.transform.position = pos;
+        var newPos = pos + leftStick * MovementSpeed * Time.deltaTime;
+
+        newPos.x = Mathf.Clamp(newPos.x, cameraBounds.x, cameraBounds.width);
+        newPos.y = Mathf.Clamp(newPos.y, cameraBounds.y, cameraBounds.height);
+
+        gameObject.transform.position = newPos;
     }
 
     void ProcessSupplies(GamePadState state)

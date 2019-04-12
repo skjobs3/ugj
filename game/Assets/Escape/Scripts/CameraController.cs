@@ -32,6 +32,24 @@ public class CameraController : MonoBehaviour
         minCameraY = -maxWidth + width;
     }
 
+    Rect getCameraBounds()
+    {
+        Rect bounds = new Rect();
+
+        var cameraPosition = Camera.main.transform.position;
+
+        Camera cam = Camera.main;
+        float height = cam.orthographicSize;
+        float width = height * cam.aspect;
+
+        bounds.x = cameraPosition.x - width;
+        bounds.width = bounds.x + width * 2.0f;
+        bounds.y = cameraPosition.y - height;
+        bounds.height = bounds.y + height * 2.0f;
+
+        return bounds;
+    }
+
     void UpdateBounds()
     {
 
@@ -46,5 +64,8 @@ public class CameraController : MonoBehaviour
         cameraPosition.x = Mathf.Clamp((player1.transform.position.x + player2.transform.position.x) / 2.0f, minCameraX, maxCameraX);
         cameraPosition.y = Mathf.Clamp((player1.transform.position.y + player2.transform.position.y) / 2.0f, minCameraY, maxCameraY);
         Camera.main.transform.position = cameraPosition;
+
+        player1.GetComponent<PlayerController>().SetCameraBounds(this.getCameraBounds());
+        player2.GetComponent<PlayerController>().SetCameraBounds(this.getCameraBounds());
     }
 }
