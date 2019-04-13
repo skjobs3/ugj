@@ -17,7 +17,7 @@ public class Continue : MonoBehaviour
     {
         GamePadState state = GamePad.GetState(PlayerIndex.One);
 
-        if(state.Buttons.X == ButtonState.Pressed)
+        if(state.Buttons.A == ButtonState.Pressed)
         {
             SceneManager.LoadScene(TransitionInfo.Instance.NextSceneName);
         }

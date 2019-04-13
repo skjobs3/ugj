@@ -9,6 +9,7 @@ public class TransitionInfo : MonoBehaviour
     {
         set
         {
+            Debug.Log("Setting next scene transition:" + value);
             m_nextSceneName = value;
         }
 
@@ -24,11 +25,6 @@ public class TransitionInfo : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
-            {
-                _instance = new TransitionInfo();
-            }
-
             return _instance;
         }
     }

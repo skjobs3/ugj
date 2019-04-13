@@ -1,4 +1,6 @@
-﻿namespace Fly
+﻿using UnityEngine.SceneManagement;
+
+namespace Fly
 {
     public class Manager : UnityEngine.MonoBehaviour
     {
@@ -83,16 +85,19 @@
             // Ship
             if (this._Ship)
             {
-                float SpeedFactor = 0f;
-
-                System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this._Ship.Pilots;
-
-                if (Pilots != null)
+                if (this._Ship.HaveFuel == true)
                 {
-                    SpeedFactor = Pilots.Count;
-                }
+                    float PilotFactor = 0f;
 
-                this._ProgressBar.ShipProgress += SpeedFactor * this._ShipSpeed / this._SpeedFactor;
+                    System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this._Ship.Pilots;
+
+                    if (Pilots != null)
+                    {
+                        PilotFactor = Pilots.Count;
+                    }
+
+                    this._ProgressBar.ShipProgress += PilotFactor * this._ShipSpeed / this._SpeedFactor;
+                }                
 
                 //
 
@@ -156,20 +161,16 @@
         {
             UnityEngine.Debug.Log("Game Ended: Win!");
 
-            if (this.WinEvent != null)
-            {
-                this.WinEvent();
-            }
+            TransitionInfo.Instance.NextSceneName = "Escape/Scenes/" + _TargetPrefab.name;
+            SceneManager.LoadScene("Transition/YouWin");
         }
 
         private void LooseHandler()
         {
             UnityEngine.Debug.Log("Game Ended: Loose!");
 
-            if (this.WinEvent != null)
-            {
-                this.WinEvent();
-            }
+            TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene("Transition/GameOver");
         }
     }
 }
