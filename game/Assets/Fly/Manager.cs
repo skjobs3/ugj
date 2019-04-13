@@ -85,16 +85,19 @@ namespace Fly
             // Ship
             if (this._Ship)
             {
-                float SpeedFactor = 0f;
-
-                System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this._Ship.Pilots;
-
-                if (Pilots != null)
+                if (this._Ship.HaveFuel == true)
                 {
-                    SpeedFactor = Pilots.Count;
-                }
+                    float PilotFactor = 0f;
 
-                this._ProgressBar.ShipProgress += SpeedFactor * this._ShipSpeed / this._SpeedFactor;
+                    System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this._Ship.Pilots;
+
+                    if (Pilots != null)
+                    {
+                        PilotFactor = Pilots.Count;
+                    }
+
+                    this._ProgressBar.ShipProgress += PilotFactor * this._ShipSpeed / this._SpeedFactor;
+                }                
 
                 //
 
