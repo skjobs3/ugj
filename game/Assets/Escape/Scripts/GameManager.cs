@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,6 +57,14 @@ public class GameManager : MonoBehaviour
                 FailGame();
             }
         }
+
+        //Cheat
+        GamePadState state = GamePad.GetState(PlayerIndex.One);
+
+        if(state.Buttons.Back == ButtonState.Pressed)
+        {
+            WinGame();
+        }
     }
 
     bool IsPlayerDead(PlayerController p)
@@ -67,8 +76,7 @@ public class GameManager : MonoBehaviour
     {
         if(m_ammo >= AmmoToCollect && m_fuel >= FuelToCollect)
         {
-            TransitionInfo.Instance.NextSceneName = NextSceneName;
-            SceneManager.LoadScene("Transition/YouWin");
+            WinGame();
         }
     }
 
@@ -90,5 +98,11 @@ public class GameManager : MonoBehaviour
     {
         TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("Transition/GameOver");
+    }
+
+    public void WinGame()
+    {
+        TransitionInfo.Instance.NextSceneName = NextSceneName;
+        SceneManager.LoadScene("Transition/YouWin");
     }
 }
