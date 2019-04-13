@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject Background;
+
     private GameObject player1;
     private GameObject player2;
 
-    public float maxHeight = 17.0f;
-    public float maxWidth = 20.0f;
+    private float maxHeight = 17.0f;
+    private float maxWidth = 20.0f;
 
     private float maxCameraX;
     private float maxCameraY;
@@ -20,6 +22,10 @@ public class CameraController : MonoBehaviour
     {
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
+
+        SpriteRenderer back = Background.GetComponent<SpriteRenderer>();
+        maxWidth = back.size.x / 2.0f;
+        maxHeight = back.size.y / 2.0f;
 
         Camera cam = Camera.main;
         float height = cam.orthographicSize;

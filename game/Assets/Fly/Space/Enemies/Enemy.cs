@@ -50,7 +50,8 @@ public class Enemy : MonoBehaviour
         var ship = otherObj.gameObject.GetComponentInParent<Fly.Ship.Instances.Ship>();
         if (ship)
         {
-            Debug.Log("Ship");
+            Debug.Log("Ship damage");
+            Debug.Log(Damage);
             ship.Damage(Damage);
         }
     }
