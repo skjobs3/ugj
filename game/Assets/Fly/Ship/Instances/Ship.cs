@@ -11,8 +11,8 @@
         [UnityEngine.SerializeField]
         private int _FuelConsumption = 1;
 
-        //[UnityEngine.SerializeField]
-        //private float _SpeedBoost = 1.0f;
+        [UnityEngine.SerializeField]
+        protected System.Collections.Generic.List<Fly.Ship.Modules.Engine> _Engines;
 
         [UnityEngine.SerializeField]
         Fly.Ship.Modules.Fuel _Fuel = null;
@@ -24,12 +24,41 @@
         {
             get
             {
-                return this._SteeringWheel.Players;
+                if (this._SteeringWheel)
+                {
+                    return this._SteeringWheel.Players;
+                }
+
+                return null;
             }
         }
 
         private void Update()
         {
+            System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this.Pilots;
+            if (Pilots != null)
+            {
+                foreach (Fly.Ship.Modules.Engine Engine in this._Engines)
+                {
+                    if (!Engine)
+                    {
+                        continue;
+                    }
+
+                    if (this.Pilots.Count == 0)
+                    {
+                        Engine.Power = 0f;
+                    }
+                    else
+                    {
+                        const float PlayerMax = 2f;
+
+                        Engine.Power = this.Pilots.Count / PlayerMax;
+                    }
+                    
+                }
+            }
+
             if (this._Fuel)
             {
                 int Factor = 1;
