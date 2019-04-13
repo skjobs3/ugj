@@ -6,6 +6,9 @@
         public event System.Action LooseEvent;
 
         [UnityEngine.SerializeField]
+        protected bool _GameEnded = false;
+
+        [UnityEngine.SerializeField]
         protected UnityEngine.GameObject _EnemyPrefab;
 
         [UnityEngine.SerializeField]
@@ -35,6 +38,11 @@
 
         protected void Update()
         {
+            if (this._GameEnded == true)
+            {
+                return;
+            }
+
             // Enemy
             {
                 this._ProgressBar.EnemyProgress += this._EnemySpeed / this._SpeedFactor;
@@ -63,6 +71,8 @@
                         this.LooseEvent();
                     }
 
+                    this._GameEnded = true;
+
                     return;
                 }
             }
@@ -74,6 +84,8 @@
                 if (this._EnemySpawn)
                 {
                     UnityEngine.GameObject.Instantiate(this._EnemyPrefab, this._EnemySpawn.transform.position, this._EnemySpawn.transform.rotation);
+
+                    this._EnemySpawn = null;
                 }
             }
 
@@ -85,6 +97,8 @@
                 {
                     this.WinEvent();
                 }
+
+                this._GameEnded = true;
 
                 return;
             }
