@@ -5,7 +5,8 @@ using XInputDotNetPure;
 
 public class GamePlayerController : MonoBehaviour
 {
-    public int index = 0;
+    static int GlobalIndex = 0;
+    int index = 0;
     public float SpeedMultiplier = 0.1f;
     public bool LockedY = false;
     public float SpeedToCollectBullets = 0.06f;
@@ -47,6 +48,8 @@ public class GamePlayerController : MonoBehaviour
     public SpriteRenderer ProgressBar;
 
     public SpriteRenderer BulletIcon;
+    public SpriteRenderer HelmetIcon;
+    public SpriteRenderer HelmetIcon2;
 
     // Start is called before the first frame update
 
@@ -77,6 +80,15 @@ public class GamePlayerController : MonoBehaviour
 
     void Start()
     {
+        index = GlobalIndex++;
+        if (index == 0)
+        {
+            HelmetIcon2.enabled = false;
+        }
+        else
+        {
+            HelmetIcon.enabled = false;
+        }
         HideProgressBar();
     }
 
