@@ -8,12 +8,11 @@ public class GamePlayerController : MonoBehaviour
     public float SpeedMultiplier = 0.1f;
     public int LoadBulletOneTick = 1;
     public int LoadFuilOneTick = 50;
+    public int _PlayerIndex = 0;
 
     public bool LockedY = false;
     public float SpeedToCollectBullets = 0.06f;
     private bool m_isInAction = false;
-    static int GlobalIndex = 0;
-    int index = 0;
 
     enum GameAction
     {
@@ -57,7 +56,7 @@ public class GamePlayerController : MonoBehaviour
 
     public XInputDotNetPure.PlayerIndex getPlayerIndex()
     {
-        return (XInputDotNetPure.PlayerIndex)index;
+        return (XInputDotNetPure.PlayerIndex)_PlayerIndex;
     }
 
     void ShowProgressBar()
@@ -82,8 +81,7 @@ public class GamePlayerController : MonoBehaviour
 
     void Start()
     {
-        index = GlobalIndex++;
-        if (index == 0)
+        if (_PlayerIndex == 0)
         {
             HelmetIcon2.enabled = false;
         }
@@ -98,7 +96,7 @@ public class GamePlayerController : MonoBehaviour
     void Update()
     {
         PlayerIndex playerIndex = PlayerIndex.One;
-        if (index == 1)
+        if (_PlayerIndex == 1)
         {
             playerIndex = PlayerIndex.Two;
         }
