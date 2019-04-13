@@ -1320,6 +1320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcdcfa61c1ad71409015b2df2cfbd99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLastCutScene: 1
   singleSequenceFadeDuration: 1
   singleSequenceFadeInStart: 0
   singleSequenceFadeOutStart: 4

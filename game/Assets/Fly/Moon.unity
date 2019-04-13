@@ -796,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 2230826351147995065, guid: eb3b96b38668e8d44a997ffcb8580314,
         type: 3}
       propertyPath: _ShipProgress
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb3b96b38668e8d44a997ffcb8580314, type: 3}
@@ -1126,6 +1126,11 @@ PrefabInstance:
       propertyPath: _EnemyGenerator
       value: 
       objectReference: {fileID: 50989859}
+    - target: {fileID: 4088191155172530285, guid: 1d45f76de39198344ad74243bfdffdda,
+        type: 3}
+      propertyPath: _ShipSpeed
+      value: 3.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d45f76de39198344ad74243bfdffdda, type: 3}
 --- !u!1001 &6387074922625727115

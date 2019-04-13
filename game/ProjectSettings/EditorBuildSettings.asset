@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Menues/Scenes/OutroCutScene.unity
     guid: 66aa08d914ed9144f80c139df39ef173
+  - enabled: 1
+    path: Assets/Fly/Mars.unity
+    guid: 414d6c45e122fd0418bdca93bfd2faec
+  - enabled: 1
+    path: Assets/Fly/Moon.unity
+    guid: c0162ca43eadacf45a31ccd77c05b31a
   m_configObjects: {}

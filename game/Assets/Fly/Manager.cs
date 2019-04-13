@@ -1,4 +1,6 @@
-﻿namespace Fly
+﻿using UnityEngine.SceneManagement;
+
+namespace Fly
 {
     public class Manager : UnityEngine.MonoBehaviour
     {
@@ -156,20 +158,16 @@
         {
             UnityEngine.Debug.Log("Game Ended: Win!");
 
-            if (this.WinEvent != null)
-            {
-                this.WinEvent();
-            }
+            TransitionInfo.Instance.NextSceneName = "Escape/Scenes/" + _TargetPrefab.name;
+            SceneManager.LoadScene("Transition/YouWin");
         }
 
         private void LooseHandler()
         {
             UnityEngine.Debug.Log("Game Ended: Loose!");
 
-            if (this.WinEvent != null)
-            {
-                this.WinEvent();
-            }
+            TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene("Transition/GameOver");
         }
     }
 }

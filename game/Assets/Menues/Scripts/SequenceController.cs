@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
+using UnityEngine.SceneManagement;
+
 public class SequenceController : MonoBehaviour
 {
+    public bool IsLastCutScene = false;
+
     public float singleSequenceFadeDuration = 1.0f;
     public float singleSequenceFadeInStart = 0.0f;
     public float singleSequenceFadeOutStart = 4.0f;
@@ -66,6 +70,17 @@ public class SequenceController : MonoBehaviour
         else
         {
             ended = true;
+
+            if (!IsLastCutScene)
+            {
+                Debug.Log("Next scene after sequence:" + TransitionInfo.Instance.NextSceneName);
+                SceneManager.LoadScene(TransitionInfo.Instance.NextSceneName);
+            }
+            else
+            {
+                TransitionInfo.Instance.NextSceneName = "";
+                SceneManager.LoadScene("Menues/Scenes/MainMenuScene");
+            }
         }
 
         GamePadState state = GamePad.GetState(PlayerIndex.One);
