@@ -20,6 +20,14 @@
         [UnityEngine.SerializeField]
         Fly.Ship.Modules.SteeringWheel _SteeringWheel = null;
 
+        public System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots
+        {
+            get
+            {
+                return this._SteeringWheel.Players;
+            }
+        }
+
         private void Update()
         {
             if (this._Fuel)

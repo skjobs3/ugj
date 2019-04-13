@@ -1095,19 +1095,14 @@ PrefabInstance:
       objectReference: {fileID: 5360676787209365839}
     - target: {fileID: 2197669247521549305, guid: 03765d342c4174c42bb2319e32b7e777,
         type: 3}
-      propertyPath: _CurrentIsInfinite
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197669247521549305, guid: 03765d342c4174c42bb2319e32b7e777,
-        type: 3}
-      propertyPath: _MaxIsInfinite
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197669247521549305, guid: 03765d342c4174c42bb2319e32b7e777,
-        type: 3}
       propertyPath: _ProgressBar
       value: 
       objectReference: {fileID: 948925531912455765}
+    - target: {fileID: 2197669247521549305, guid: 03765d342c4174c42bb2319e32b7e777,
+        type: 3}
+      propertyPath: _CurrentIsInfinite
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03765d342c4174c42bb2319e32b7e777, type: 3}
 --- !u!4 &3984440059378998437 stripped
@@ -1569,13 +1564,13 @@ PrefabInstance:
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6952364862245977762}
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.data[1]
@@ -2401,13 +2396,13 @@ PrefabInstance:
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8073351676223035121}
     - target: {fileID: 2883741282061054449, guid: e8d4d82e3d8ca3041a1b7da2d8b2fb46,
         type: 3}
       propertyPath: _Areas.Array.data[1]
