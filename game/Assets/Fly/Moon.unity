@@ -312,6 +312,16 @@ PrefabInstance:
       propertyPath: _FuelConsumption
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7845863410742765588, guid: ffda715366a997249b4724cdfaa8e358,
+        type: 3}
+      propertyPath: _DurabilityMax
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845863410742765588, guid: ffda715366a997249b4724cdfaa8e358,
+        type: 3}
+      propertyPath: _DurabilityCurrent
+      value: 6000
+      objectReference: {fileID: 0}
     - target: {fileID: 4096485279719159390, guid: ffda715366a997249b4724cdfaa8e358,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -1102,7 +1112,7 @@ PrefabInstance:
     - target: {fileID: 4088191155172530285, guid: 1d45f76de39198344ad74243bfdffdda,
         type: 3}
       propertyPath: _SpeedFactor
-      value: 10000
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 4088191155172530285, guid: 1d45f76de39198344ad74243bfdffdda,
         type: 3}
