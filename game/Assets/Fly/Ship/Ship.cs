@@ -40,10 +40,5 @@
             this._DurabilityCurrent -= Value;
             this._DurabilityCurrent = UnityEngine.Mathf.Clamp(this._DurabilityCurrent, 0, this._DurabilityMax);
         }
-
-        public int getHealth()
-        {
-            return _DurabilityCurrent;
-        }
     }
 }
