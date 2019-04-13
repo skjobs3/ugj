@@ -81,12 +81,7 @@ namespace Fly
             {
                 if (XInputDotNetPure.GamePad.GetState((XInputDotNetPure.PlayerIndex)Index).Buttons.Back == XInputDotNetPure.ButtonState.Pressed)
                 {
-                    if (this.WinEvent != null)
-                    {
-                        this.WinEvent();
-
-                        this.WinEvent = null;
-                    }
+                    this.WinHandler();
                 }
             }
 
