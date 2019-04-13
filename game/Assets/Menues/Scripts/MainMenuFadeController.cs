@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
+using UnityEngine.SceneManagement;
 
 public class MainMenuFadeController : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class MainMenuFadeController : MonoBehaviour
     public Vector2 buttonFadeDuration = new Vector2(2.0f, 3.0f);
 
     private float sceneTime = 0.0f;
+    private bool activated = false;
 
     void updateAlpha(GameObject spr, float alpha)
     {
@@ -49,6 +52,22 @@ public class MainMenuFadeController : MonoBehaviour
         {
             float duration = buttonFadeDuration.y - buttonFadeDuration.x;
             updateAlpha(playButton, Mathf.Clamp(sceneTime - buttonFadeDuration.x, 0.0f, duration));
+        }
+
+        if(sceneTime >= buttonFadeDuration.y)
+        {
+            activated = true;
+        }
+
+        if(activated)
+        {
+            GamePadState state = GamePad.GetState(PlayerIndex.One);
+
+            if(state.Buttons.A == ButtonState.Pressed)
+            {
+                TransitionInfo.Instance.NextSceneName = "";
+                SceneManager.LoadScene("");
+            }
         }
     }
 }
