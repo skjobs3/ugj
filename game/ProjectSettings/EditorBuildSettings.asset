@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Transition/YouWin.unity
     guid: c6425a04c27bb67499c0f4e0b39e73a3
+  - enabled: 1
+    path: Assets/Menues/MainMenuScene.unity
+    guid: dca4a4b4c5e2a814cb0d92b54df667c6
   m_configObjects: {}

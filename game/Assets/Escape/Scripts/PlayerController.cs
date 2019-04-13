@@ -11,8 +11,11 @@ public class PlayerController : MonoBehaviour
     public PlayerIndex Index;
     public GameObject SupplyPrefab;
     public PlayerUIController UIController;
+    public Sprite P1Sprite;
+    public Sprite P2Sprite;
 
     private Rect cameraBounds = new Rect(-100, -100, 200, 200);
+    private float m_rotationSpeed = 290.0f;
 
     public void SetCameraBounds(Rect bounds)
     {
@@ -52,14 +55,18 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+
         switch (Index)
         {
             case PlayerIndex.One:
                 UIController.SetName("Player1");
+                renderer.sprite = P1Sprite;
                 break;
 
             case PlayerIndex.Two:
                 UIController.SetName("Player2");
+                renderer.sprite = P2Sprite;
                 break;
         }
 

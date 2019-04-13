@@ -373,6 +373,7 @@ MonoBehaviour:
   HPSlider: {fileID: 536316404933604695}
   HPText: {fileID: 7102171053199902172}
   Name: {fileID: 8286980945344575769}
+  Icon: {fileID: 5474079910137537697}
 --- !u!1 &4520090345809894849
 GameObject:
   m_ObjectHideFlags: 0

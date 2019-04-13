@@ -179,10 +179,11 @@ MonoBehaviour:
   DistanceToDropSupply: 2
   MovementSpeed: 3
   Index: 0
-  FireBehaviorPrefab: {fileID: 5710337082849672739, guid: d86f87ae16a988147b6deaa2d84d5e96,
-    type: 3}
   SupplyPrefab: {fileID: 1532574659197032014, guid: 11c822ce53fecc14ba9ec1a732752113,
     type: 3}
+  UIController: {fileID: 0}
+  P1Sprite: {fileID: 21300000, guid: 5be81caf9a05bf941ba363f17fb0ffd0, type: 3}
+  P2Sprite: {fileID: 21300000, guid: 50e2148b4583ad946abe2bc2beabbf95, type: 3}
 --- !u!50 &8399119874387609042
 Rigidbody2D:
   serializedVersion: 4
