@@ -5,9 +5,11 @@ using XInputDotNetPure;
 
 public class GamePlayerController : MonoBehaviour
 {
-    static int GlobalIndex = 0;
-    int index = 0;
     public float SpeedMultiplier = 0.1f;
+    public int LoadBulletOneTick = 1;
+    public int LoadFuilOneTick = 50;
+    public int _PlayerIndex = 0;
+
     public bool LockedY = false;
     public float SpeedToCollectBullets = 0.06f;
     private bool m_isInAction = false;
@@ -37,7 +39,6 @@ public class GamePlayerController : MonoBehaviour
     private Fly.Ship.Areas.Setter m_setter = null;
     private Fly.Ship.Areas.Activator m_activator = null;
     private Fly.Ship.Areas.SetterAndActivator m_setterAndActivator = null;
-    private const int WantedCount = 1;
     private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons = new System.Collections.Generic.List<SpriteRenderer>();
@@ -55,7 +56,7 @@ public class GamePlayerController : MonoBehaviour
 
     public XInputDotNetPure.PlayerIndex getPlayerIndex()
     {
-        return (XInputDotNetPure.PlayerIndex)index;
+        return (XInputDotNetPure.PlayerIndex)_PlayerIndex;
     }
 
     void ShowProgressBar()
@@ -80,8 +81,7 @@ public class GamePlayerController : MonoBehaviour
 
     void Start()
     {
-        index = GlobalIndex++;
-        if (index == 0)
+        if (_PlayerIndex == 0)
         {
             HelmetIcon2.enabled = false;
         }
@@ -96,7 +96,7 @@ public class GamePlayerController : MonoBehaviour
     void Update()
     {
         PlayerIndex playerIndex = PlayerIndex.One;
-        if (index == 1)
+        if (_PlayerIndex == 1)
         {
             playerIndex = PlayerIndex.Two;
         }
@@ -224,7 +224,7 @@ public class GamePlayerController : MonoBehaviour
                     m_isInAction = true;
                     m_progress += SpeedToCollectBullets;
                     SetProgress(m_progress);
-                    int result = m_getter.Get(this, WantedCount);
+                    int result = m_getter.Get(this, LoadBulletOneTick);
                     if (result >= 0)
                     {
                         m_gettetAmount += result;
@@ -259,22 +259,22 @@ public class GamePlayerController : MonoBehaviour
 
                     if (m_setter && (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo) || m_setterAndActivator)
                     {
-                        int amount = m_gettetAmount -= WantedCount;
+                        int amount = m_gettetAmount -= LoadBulletOneTick;
                         if (amount >= 0)
                         {
                             int wasSet = 0;
                             if (m_setter)
                             {
-                                wasSet = m_setter.Set(this, WantedCount);
+                                wasSet = m_setter.Set(this, LoadBulletOneTick);
                             }
                             else if (m_setterAndActivator)
                             {
-                                wasSet = m_setterAndActivator.Set(this, WantedCount);
+                                wasSet = m_setterAndActivator.Set(this, LoadBulletOneTick);
                             }
 
                             if (wasSet == 0)
                             {
-                                m_gettetAmount += WantedCount;
+                                m_gettetAmount += LoadBulletOneTick;
                                 m_progress = 1.0f;
                             }
                         }
@@ -286,7 +286,7 @@ public class GamePlayerController : MonoBehaviour
                     }
                     else
                     {
-                        m_setter.Set(this, WantedCount);
+                        m_setter.Set(this, LoadFuilOneTick);
                     }
                     SetProgress(m_progress);
 

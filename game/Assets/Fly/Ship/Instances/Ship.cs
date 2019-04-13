@@ -35,6 +35,16 @@
         [UnityEngine.SerializeField]
         Fly.Ship.Modules.Fuel _Fuel = null;
 
+        private bool _HaveFuel = true;
+
+        public bool HaveFuel
+        {
+            get
+            {
+                return this._HaveFuel;
+            }
+        }
+
         [UnityEngine.SerializeField]
         Fly.Ship.Modules.SteeringWheel _SteeringWheel = null;
 
@@ -53,6 +63,25 @@
 
         private void Update()
         {
+            if (this._Fuel)
+            {
+                int Factor = 1;
+
+                if (this._SteeringWheel)
+                {
+                    Factor = this._SteeringWheel.Players.Count;
+                }
+
+                int Amount = this._Fuel.Get(this._FuelConsumption * Factor);
+                this._HaveFuel = Amount > 0;
+            }
+            else
+            {
+                this._HaveFuel = false;
+            }
+
+            //
+
             System.Collections.Generic.IReadOnlyCollection<GamePlayerController> Pilots = this.Pilots;
             if (Pilots != null)
             {
@@ -63,7 +92,7 @@
                         continue;
                     }
 
-                    if (this.Pilots.Count == 0)
+                    if (HaveFuel == false || this.Pilots.Count == 0)
                     {
                         Engine.Power = 0f;
                     }
@@ -73,20 +102,7 @@
 
                         Engine.Power = this.Pilots.Count / PlayerMax;
                     }
-                    
                 }
-            }
-
-            if (this._Fuel)
-            {
-                int Factor = 1;
-
-                if (this._SteeringWheel)
-                {
-                    Factor = this._SteeringWheel.Players.Count;
-                }
-
-                this._Fuel.Get(this._FuelConsumption * Factor);
             }
         }
 

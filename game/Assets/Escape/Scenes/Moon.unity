@@ -2493,9 +2493,9 @@ MonoBehaviour:
   RulesUIController: {fileID: 800687076}
   Player1: {fileID: 1081100027}
   Player2: {fileID: 1399399113}
-  NextSceneName: 
-  AmmoToCollect: 5
-  FuelToCollect: 7
+  NextSceneName: Fly/Mars
+  AmmoToCollect: 3
+  FuelToCollect: 4
   LevelTime: 100
 --- !u!1 &2118436294
 GameObject:
