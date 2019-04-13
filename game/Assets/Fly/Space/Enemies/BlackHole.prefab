@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Power: 50
-  Health: 500
-  Damage: 500
+  Health: 200
+  Damage: 1200
   garbageObjects: []
 --- !u!50 &4489163679998202615
 Rigidbody2D:
