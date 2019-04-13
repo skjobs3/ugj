@@ -14,7 +14,7 @@ public class SupplyZonesHelper : MonoBehaviour
     public CameraController cameraController;
     public GameObject supplyZoneMarker;
     public GameObject supplyZoneFuelMarker;
-    public List<SupplyZone> supplyZones;
+    public List<SupplyZone> supplyZones = new List<SupplyZone>();
     public float startFadeDistance = 5.0f;
 
     private List<ContactInfo> contacts = new List<ContactInfo>();
