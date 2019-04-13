@@ -2553,8 +2553,8 @@ MonoBehaviour:
   Player1: {fileID: 1081100027}
   Player2: {fileID: 1399399113}
   NextSceneName: Menues/Scenes/OutroCutScene
-  AmmoToCollect: 5
-  FuelToCollect: 5
+  AmmoToCollect: 4
+  FuelToCollect: 4
   LevelTime: 200
 --- !u!1 &2118436294
 GameObject:
