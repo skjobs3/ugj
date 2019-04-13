@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Transition/YouWin.unity
     guid: c6425a04c27bb67499c0f4e0b39e73a3
   - enabled: 1
-    path: Assets/Menues/MainMenuScene.unity
+    path: Assets/Menues/Scenes/MainMenuScene.unity
     guid: dca4a4b4c5e2a814cb0d92b54df667c6
+  - enabled: 1
+    path: Assets/Escape/Scenes/Mars.unity
+    guid: 5b6a3de75a76cf549a4f7b508def5db7
+  - enabled: 1
+    path: Assets/Escape/Scenes/Moon.unity
+    guid: 739f942a750671e41a45654cbfa603e8
   m_configObjects: {}

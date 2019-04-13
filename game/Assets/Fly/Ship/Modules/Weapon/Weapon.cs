@@ -98,6 +98,7 @@
                         if (this.Current > 0)
                         {
                             int Count = this.Get(1);
+
                             if (Count > 0)
                             {
                                 UnityEngine.GameObject.Instantiate(this._ProjectilePrefab, this._ProjectileSpawner.transform.position, this.transform.rotation);

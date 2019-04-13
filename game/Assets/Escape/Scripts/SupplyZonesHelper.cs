@@ -14,7 +14,6 @@ public class SupplyZonesHelper : MonoBehaviour
     public CameraController cameraController;
     public GameObject supplyZoneMarker;
     public GameObject supplyZoneFuelMarker;
-    public List<SupplyZone> supplyZones = new List<SupplyZone>();
     public float startFadeDistance = 5.0f;
 
     private List<ContactInfo> contacts = new List<ContactInfo>();
@@ -23,8 +22,12 @@ public class SupplyZonesHelper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(var zone in supplyZones)
+        var supplyZones = GameObject.FindGameObjectsWithTag("SupplyZone");
+
+        foreach (var zoneGO in supplyZones)
         {
+            SupplyZone zone = zoneGO.GetComponent<SupplyZone>();
+
             if (zone.Type == SupplyZone.SupplyType.Ammo)
             {
                 GameObject marker = Instantiate(supplyZoneMarker);
@@ -62,8 +65,12 @@ public class SupplyZonesHelper : MonoBehaviour
         colliderSize.y = cameraBounds.height;
         collider.size = colliderSize;
 
-        foreach (var zone in supplyZones)
+        var supplyZones = GameObject.FindGameObjectsWithTag("SupplyZone");
+
+        foreach (var zoneGO in supplyZones)
         {
+            SupplyZone zone = zoneGO.GetComponent<SupplyZone>();
+
             Vector3 directionVector = new Vector3(transform.position.x - zone.transform.position.x, transform.position.y - zone.transform.position.y, transform.position.z);
             RaycastHit2D[] hits = Physics2D.RaycastAll(zone.transform.position, directionVector);
             foreach (var hit in hits)
