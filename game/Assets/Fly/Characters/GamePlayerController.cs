@@ -8,6 +8,7 @@ public class GamePlayerController : MonoBehaviour
     public int index = 0;
     public float SpeedMultiplier = 0.1f;
     public bool LockedY = false;
+    public float SpeedToCollectBullets = 0.06f;
     private bool m_isInAction = false;
 
     enum GameAction
@@ -35,7 +36,7 @@ public class GamePlayerController : MonoBehaviour
     private Fly.Ship.Areas.Setter m_setter = null;
     private Fly.Ship.Areas.Activator m_activator = null;
     private Fly.Ship.Areas.SetterAndActivator m_setterAndActivator = null;
-    private const int WantedCount = 20;
+    private const int WantedCount = 1;
     private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
     private System.Collections.Generic.List<SpriteRenderer> Buttons = new System.Collections.Generic.List<SpriteRenderer>();
@@ -44,6 +45,8 @@ public class GamePlayerController : MonoBehaviour
     public SpriteRenderer ProgressBarBg;
     [SerializeField]
     public SpriteRenderer ProgressBar;
+
+    public SpriteRenderer BulletIcon;
 
     // Start is called before the first frame update
 
@@ -102,18 +105,27 @@ public class GamePlayerController : MonoBehaviour
             this.gameObject.transform.position = pos;
         }
 
+        if (m_gettetAmount > 0)
+        {
+            BulletIcon.enabled = true;
+        }
+        else
+        {
+            BulletIcon.enabled = false;
+        }
+
         processGameAcion();
     }
 
     private void setterTrigered()
     {
-        Buttons[Y_ButtonIndex].enabled = true;
-        if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
+        Buttons[X_ButtonIndex].enabled = true;
+        if (m_gamePadState.Buttons.X == ButtonState.Pressed)
         {
-            Buttons[Y_ButtonIndex].enabled = false;
+            Buttons[X_ButtonIndex].enabled = false;
             m_currentAction = GameAction.setting;
-            if ((m_setter && (m_setter.Kind == Fly.Ship.Resources.Kind.Fuel || (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo && m_gettetAmount > 50))) ||
-               (m_setterAndActivator && m_gettetAmount > 50))
+            if ((m_setter && (m_setter.Kind == Fly.Ship.Resources.Kind.Fuel || (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo && m_gettetAmount > 0))) ||
+               (m_setterAndActivator && m_gettetAmount > 0))
             {
                 ShowProgressBar();
             }
@@ -133,6 +145,7 @@ public class GamePlayerController : MonoBehaviour
             {
                 Buttons[A_ButtonIndex].enabled = false;
                 Buttons[B_ButtonIndex].enabled = true;
+                Buttons[X_ButtonIndex].enabled = false;
                 m_currentAction = GameAction.activating;
                 m_isInAction = true;
             }
@@ -197,7 +210,7 @@ public class GamePlayerController : MonoBehaviour
                         m_gettetAmount = 0;
                     }
                     m_isInAction = true;
-                    m_progress += 0.01f;
+                    m_progress += SpeedToCollectBullets;
                     SetProgress(m_progress);
                     int result = m_getter.Get(this, WantedCount);
                     if (result >= 0)
@@ -227,7 +240,7 @@ public class GamePlayerController : MonoBehaviour
                 setterTrigered();
                 break;
             case GameAction.setting:
-                if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
+                if (m_gamePadState.Buttons.X == ButtonState.Pressed)
                 {
                     m_isInAction = true;
                     m_progress += 0.01f;
@@ -237,13 +250,20 @@ public class GamePlayerController : MonoBehaviour
                         int amount = m_gettetAmount -= WantedCount;
                         if (amount >= 0)
                         {
+                            int wasSet = 0;
                             if (m_setter)
                             {
-                                m_setter.Set(this, WantedCount);
+                                wasSet = m_setter.Set(this, WantedCount);
                             }
                             else if (m_setterAndActivator)
                             {
-                                m_setterAndActivator.Set(this, WantedCount);
+                                wasSet = m_setterAndActivator.Set(this, WantedCount);
+                            }
+
+                            if (wasSet == 0)
+                            {
+                                m_gettetAmount += WantedCount;
+                                m_progress = 1.0f;
                             }
                         }
                         else
