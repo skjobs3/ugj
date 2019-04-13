@@ -58,7 +58,7 @@
         protected float _ShipSpeed = 3.75f;
 
         [UnityEngine.SerializeField]
-        protected float _SpeedFactor = 1000f;
+        protected float _SpeedFactor = 50000.0f;
 
         protected void Start()
         {

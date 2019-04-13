@@ -979,11 +979,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 8535594343581952654, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6235334466473469318, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
         type: 3}
       propertyPath: SpeedMultiplier
@@ -992,6 +987,11 @@ PrefabInstance:
     - target: {fileID: 6235334466473469318, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
         type: 3}
       propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8535594343581952654, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5340938537219514628, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
@@ -1092,7 +1092,7 @@ PrefabInstance:
     - target: {fileID: 4088191155172530285, guid: 1d45f76de39198344ad74243bfdffdda,
         type: 3}
       propertyPath: _SpeedFactor
-      value: 1000
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 4088191155172530285, guid: 1d45f76de39198344ad74243bfdffdda,
         type: 3}
