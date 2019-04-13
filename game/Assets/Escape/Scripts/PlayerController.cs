@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        UIController.SetActiveWeapon(GetComponent<WeaponManager>().ActiveWeaponType);
+
     }
 
     // Update is called once per frame
@@ -155,12 +157,14 @@ public class PlayerController : MonoBehaviour
             {
                 m_leftDPadWasPressed = false;
                 manager.PrevWeapon();
+                UIController.SetActiveWeapon(manager.ActiveWeaponType);
             }
 
             if (state.DPad.Right == ButtonState.Released && m_rightDPadWasPressed)
             {
                 m_rightDPadWasPressed = false;
                 manager.NextWeapon();
+                UIController.SetActiveWeapon(manager.ActiveWeaponType);
             }
         }
     }

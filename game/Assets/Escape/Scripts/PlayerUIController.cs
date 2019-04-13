@@ -8,6 +8,8 @@ public class PlayerUIController : MonoBehaviour
     public Slider HPSlider;
     public Text HPText;
     public Text Name;
+    public Image MachinegunActive;
+    public Image ShotgunActive;
 
     // Start is called before the first frame update
     void Start()
@@ -30,5 +32,11 @@ public class PlayerUIController : MonoBehaviour
     {
         HPSlider.value = (float)newValue / (float)total;
         HPText.text = newValue.ToString();
+    }
+
+    public void SetActiveWeapon(WeaponManager.WeaponType type)
+    {
+        MachinegunActive.enabled = type == WeaponManager.WeaponType.Machinegun;
+        ShotgunActive.enabled = type == WeaponManager.WeaponType.Shotgun;
     }
 }

@@ -65,8 +65,7 @@ public class MainMenuFadeController : MonoBehaviour
 
             if(state.Buttons.A == ButtonState.Pressed)
             {
-                TransitionInfo.Instance.NextSceneName = "";
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("Menues/Scenes/IntroCutScene");
             }
         }
     }

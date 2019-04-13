@@ -82,8 +82,11 @@ public class RefillZone : MonoBehaviour
             return;
         }
 
-        Supply supply = collider.gameObject.GetComponent<Supply>();
+        var supply = collider.gameObject.GetComponent<Supply>();
+        m_activeSupplies.Remove(supply);
         m_activeSupplies.Add(supply);
+
+        Debug.Log("ENTER");
     }
 
     void OnTriggerExit2D(Collider2D collider)
@@ -95,5 +98,6 @@ public class RefillZone : MonoBehaviour
 
         Supply supply = collider.gameObject.GetComponent<Supply>();
         m_activeSupplies.Remove(supply);
+        Debug.Log("EXIT");
     }
 }
