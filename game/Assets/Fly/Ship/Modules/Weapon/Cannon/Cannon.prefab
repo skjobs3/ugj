@@ -127,7 +127,7 @@ MonoBehaviour:
   _Areas: []
   _ProgressBar: {fileID: 0}
   _CurrentIsInfinite: 0
-  _Current: 0
+  _Current: 20
   _MaxIsInfinite: 0
   _Max: 20
   _Limit: 1

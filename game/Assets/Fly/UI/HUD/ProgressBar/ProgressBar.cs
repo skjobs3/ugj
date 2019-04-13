@@ -14,7 +14,7 @@
             private UnityEngine.RectTransform _Enemy = null;
 
             [UnityEngine.SerializeField]
-            private float _EnemyProgress;
+            private float _EnemyProgress = 0;
 
             public float EnemyProgress
             {
@@ -33,7 +33,7 @@
             }
 
             [UnityEngine.SerializeField]
-            private float _ShipProgress;
+            private float _ShipProgress = 0;
 
             public float ShipProgress
             {
@@ -49,22 +49,6 @@
                     Position.x = this._Path.rect.size.x * this._ShipProgress;
                     this._Ship.anchoredPosition = Position;
                 }
-            }
-
-            void Update()
-            {
-                this.EnemyProgress = this._EnemyProgress;
-                this.ShipProgress = this._ShipProgress;
-                /*
-                float mapWidth = Map.GetComponent<RectTransform>().rect.width;
-                var pos = Ship.transform.position;
-                pos.x = mapWidth * shipPosition + Map.transform.position.x;
-
-                Ship.transform.position = pos;
-
-                pos.x = mapWidth * enemyPosition + Map.transform.position.x;
-                Enemy.transform.position = pos;
-                */
             }
         }
     }
