@@ -93,7 +93,7 @@
             {
                 if (this._FireLast > this._FireDelay)
                 {
-                    if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Buttons.A == XInputDotNetPure.ButtonState.Pressed)
+                    if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Triggers.Right >= 0.5f)
                     {
                         if (this.Current > 0)
                         {

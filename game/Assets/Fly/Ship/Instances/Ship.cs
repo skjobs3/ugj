@@ -5,6 +5,14 @@
         [UnityEngine.SerializeField]
         private int _DurabilityCurrent = 10000;
 
+        public int Durability
+        {
+            get
+            {
+                return this._DurabilityCurrent;
+            }
+        }
+
         [UnityEngine.SerializeField]
         private int _DurabilityMax = 10000;
 

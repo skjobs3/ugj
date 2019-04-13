@@ -2,6 +2,15 @@
 {
     public class Manager : UnityEngine.MonoBehaviour
     {
+        public event System.Action WinEvent;
+        public event System.Action LooseEvent;
+
+        [UnityEngine.SerializeField]
+        protected UnityEngine.GameObject _EnemyPrefab;
+
+        [UnityEngine.SerializeField]
+        protected UnityEngine.GameObject _EnemySpawn;
+
         [UnityEngine.SerializeField]
         protected Fly.UI.HUD.ProgressBar _ProgressBar;
 
@@ -44,6 +53,40 @@
                 }
 
                 this._ProgressBar.ShipProgress += SpeedFactor * this._ShipSpeed / this._SpeedFactor;
+
+                //
+
+                if (this._Ship.Durability <= 0)
+                {
+                    if (this.LooseEvent != null)
+                    {
+                        this.LooseEvent();
+                    }
+
+                    return;
+                }
+            }
+
+            //
+
+            if (this._ProgressBar.EnemyProgress >= this._ProgressBar.ShipProgress)
+            {
+                if (this._EnemySpawn)
+                {
+                    UnityEngine.GameObject.Instantiate(this._EnemyPrefab, this._EnemySpawn.transform.position, this._EnemySpawn.transform.rotation);
+                }
+            }
+
+            //
+
+            if (this._ProgressBar.ShipProgress >= 1.0f)
+            {
+                if (this.WinEvent != null)
+                {
+                    this.WinEvent();
+                }
+
+                return;
             }
         }
     }
