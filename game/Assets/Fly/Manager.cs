@@ -77,6 +77,19 @@ namespace Fly
                 return;
             }
 
+            for (int Index = 0; Index < 4; ++Index)
+            {
+                if (XInputDotNetPure.GamePad.GetState((XInputDotNetPure.PlayerIndex)Index).Buttons.Back == XInputDotNetPure.ButtonState.Pressed)
+                {
+                    if (this.WinEvent != null)
+                    {
+                        this.WinEvent();
+
+                        this.WinEvent = null;
+                    }
+                }
+            }
+
             // Enemy
             {
                 this._ProgressBar.EnemyProgress += this._EnemySpeed / this._SpeedFactor;
@@ -161,7 +174,11 @@ namespace Fly
         {
             UnityEngine.Debug.Log("Game Ended: Win!");
 
-            TransitionInfo.Instance.NextSceneName = "Escape/Scenes/" + _TargetPrefab.name;
+            if (TransitionInfo.Instance)
+            {
+                TransitionInfo.Instance.NextSceneName = "Escape/Scenes/" + _TargetPrefab.name;
+            }
+
             SceneManager.LoadScene("Transition/YouWin");
         }
 
@@ -169,7 +186,11 @@ namespace Fly
         {
             UnityEngine.Debug.Log("Game Ended: Loose!");
 
-            TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
+            if (TransitionInfo.Instance)
+            {
+                TransitionInfo.Instance.NextSceneName = SceneManager.GetActiveScene().name;
+            }
+
             SceneManager.LoadScene("Transition/GameOver");
         }
     }
