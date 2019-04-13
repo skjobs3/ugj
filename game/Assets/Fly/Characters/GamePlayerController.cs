@@ -19,6 +19,8 @@ public class GamePlayerController : MonoBehaviour
         getting,
         setterTriggered,
         setting,
+        SetterActivatorTriggered,
+        SetterGetterRunning
     }
 
     private const int A_ButtonIndex = 0;
@@ -32,10 +34,11 @@ public class GamePlayerController : MonoBehaviour
     private Fly.Ship.Areas.Getter m_getter = null;
     private Fly.Ship.Areas.Setter m_setter = null;
     private Fly.Ship.Areas.Activator m_activator = null;
+    private Fly.Ship.Areas.SetterAndActivator m_setterAndActivator = null;
     private const int WantedCount = 20;
     private bool m_newCollisionWithoutExitingOld = false;
     [SerializeField]
-    private System.Collections.Generic.List<SpriteRenderer> Buttons;
+    private System.Collections.Generic.List<SpriteRenderer> Buttons = new System.Collections.Generic.List<SpriteRenderer>();
 
     [SerializeField]
     public SpriteRenderer ProgressBarBg;
@@ -102,6 +105,40 @@ public class GamePlayerController : MonoBehaviour
         processGameAcion();
     }
 
+    private void setterTrigered()
+    {
+        Buttons[Y_ButtonIndex].enabled = true;
+        if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
+        {
+            Buttons[Y_ButtonIndex].enabled = false;
+            m_currentAction = GameAction.setting;
+            if ((m_setter && (m_setter.Kind == Fly.Ship.Resources.Kind.Fuel || (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo && m_gettetAmount > 50))) ||
+               (m_setterAndActivator && m_gettetAmount > 50))
+            {
+                ShowProgressBar();
+            }
+            else
+            {
+                m_progress = 0.0f;
+            }
+        }
+    }
+
+    private void activatorTriggered()
+    {
+        Buttons[A_ButtonIndex].enabled = true;
+        if (m_gamePadState.Buttons.A == ButtonState.Pressed)
+        {
+            if ((m_activator && m_activator.Activate(this) || m_setterAndActivator && m_setterAndActivator.Activate(this) )&& !m_isInAction)
+            {
+                Buttons[A_ButtonIndex].enabled = false;
+                Buttons[B_ButtonIndex].enabled = true;
+                m_currentAction = GameAction.activating;
+                m_isInAction = true;
+            }
+        }
+    }
+
     private void processGameAcion()
     {
         if (m_currentAction == GameAction.none)
@@ -110,19 +147,13 @@ public class GamePlayerController : MonoBehaviour
         }
         switch (m_currentAction)
         {
+            case GameAction.SetterActivatorTriggered:
+                setterTrigered();
+                activatorTriggered();
+                break;
             case GameAction.activatorTriggered:
                 {
-                    Buttons[A_ButtonIndex].enabled = true;
-                    if (m_gamePadState.Buttons.A == ButtonState.Pressed)
-                    {
-                        if (m_activator.Activate(this) && !m_isInAction)
-                        {
-                            Buttons[A_ButtonIndex].enabled = false;
-                            Buttons[B_ButtonIndex].enabled = true;
-                            m_currentAction = GameAction.activating;
-                            m_isInAction = true;
-                        }
-                    }
+                    activatorTriggered();
                 }
                 break;
             case GameAction.activating:
@@ -131,8 +162,18 @@ public class GamePlayerController : MonoBehaviour
                 {
                     //TODO: do something with visibility, etc.
                     Buttons[B_ButtonIndex].enabled = false;
-                    m_activator.Deactivate(this);
+                    if (m_activator)
+                    {
+                        m_activator.Deactivate(this);
+                    }
                     m_currentAction = GameAction.activatorTriggered;
+
+                    if (m_setterAndActivator)
+                    {
+                        m_currentAction = GameAction.SetterActivatorTriggered;
+                        m_setterAndActivator.Deactivate(this);
+                    }
+
                     m_isInAction = false;
                 }
                 break;
@@ -183,21 +224,7 @@ public class GamePlayerController : MonoBehaviour
                 }
                 break;
             case GameAction.setterTriggered:
-                    Buttons[Y_ButtonIndex].enabled = true;
-                    if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
-                    {
-                        Buttons[Y_ButtonIndex].enabled = false;
-                        m_currentAction = GameAction.setting;
-                    if (m_setter.Kind == Fly.Ship.Resources.Kind.Fuel ||
-                        (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo && m_gettetAmount > 50))
-                    {
-                        ShowProgressBar();
-                    }
-                    else
-                    {
-                        m_progress = 0.0f;
-                    }
-                }
+                setterTrigered();
                 break;
             case GameAction.setting:
                 if (m_gamePadState.Buttons.Y == ButtonState.Pressed)
@@ -205,12 +232,19 @@ public class GamePlayerController : MonoBehaviour
                     m_isInAction = true;
                     m_progress += 0.01f;
 
-                    if (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo)
+                    if (m_setter && (m_setter.Kind == Fly.Ship.Resources.Kind.Ammo) || m_setterAndActivator)
                     {
                         int amount = m_gettetAmount -= WantedCount;
                         if (amount >= 0)
                         {
-                            m_setter.Set(this, WantedCount);
+                            if (m_setter)
+                            {
+                                m_setter.Set(this, WantedCount);
+                            }
+                            else if (m_setterAndActivator)
+                            {
+                                m_setterAndActivator.Set(this, WantedCount);
+                            }
                         }
                         else
                         {
@@ -235,6 +269,11 @@ public class GamePlayerController : MonoBehaviour
                     HideProgressBar();
                     m_currentAction = GameAction.setterTriggered;
                     m_isInAction = false;
+
+                    if (m_setterAndActivator)
+                    {
+                        m_currentAction = GameAction.SetterActivatorTriggered;
+                    }
                 }
                 break;
         }
@@ -265,6 +304,15 @@ public class GamePlayerController : MonoBehaviour
             return;
         }
 
+        Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
+        if (Activator)
+        {
+            m_activator = Activator;
+            //Activator.Activate(this);
+            m_currentAction = GameAction.activatorTriggered;
+            return;
+        }
+
         Fly.Ship.Areas.Setter Setter = Area as Fly.Ship.Areas.Setter;
         if (Setter)
         {
@@ -273,13 +321,11 @@ public class GamePlayerController : MonoBehaviour
             return;
         }
 
-        Fly.Ship.Areas.Activator Activator = Area as Fly.Ship.Areas.Activator;
-        if (Activator)
+        Fly.Ship.Areas.SetterAndActivator SetterAndActivator = Area as Fly.Ship.Areas.SetterAndActivator;
+        if (SetterAndActivator)
         {
-            m_activator = Activator;
-            //Activator.Activate(this);
-            m_currentAction = GameAction.activatorTriggered;
-            return;
+            m_setterAndActivator = SetterAndActivator;
+            m_currentAction = GameAction.SetterActivatorTriggered;
         }
 
     }
@@ -301,11 +347,16 @@ public class GamePlayerController : MonoBehaviour
         if (m_activator)
         {
             m_activator.Deactivate(this);
+            m_activator = null;
         }
         m_isInAction = false;
-        m_activator = null;
         m_getter = null;
         m_setter = null;
+        if (m_setterAndActivator)
+        {
+            m_setterAndActivator.Deactivate(this);
+            m_setterAndActivator = null;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)

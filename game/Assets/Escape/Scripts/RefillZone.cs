@@ -51,9 +51,26 @@ public class RefillZone : MonoBehaviour
 
         m_activeSupplies = leftSupplies;
 
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        GameManager manager = cam.GetComponent<GameManager>();
+
         foreach(Supply supply in suppliesToRemove)
         {
-            //#TODO: Notify game rules
+            switch (supply.Type)
+            {
+                case SupplyZone.SupplyType.Ammo:
+                    manager.CollectAmmo();
+                    break;
+
+                case SupplyZone.SupplyType.Fuel:
+                    manager.CollectFuel();
+                    break;
+
+                default:
+                    Debug.Assert(false, "Unknown supply type");
+                    break;
+            }
+
             Destroy(supply.gameObject);
         }
     }

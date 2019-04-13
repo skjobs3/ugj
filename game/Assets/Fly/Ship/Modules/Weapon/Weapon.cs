@@ -37,6 +37,14 @@
                     Activator.DeactivateEvent += this.AreaDeactivateHandler;
                     continue;
                 }
+
+                Fly.Ship.Areas.SetterAndActivator SetterAndActivator = Area as Fly.Ship.Areas.SetterAndActivator;
+                if (SetterAndActivator)
+                {
+                    SetterAndActivator.ActivateEvent   += this.AreaActivateHandler;
+                    SetterAndActivator.DeactivateEvent += this.AreaDeactivateHandler;
+                    continue;
+                }
             }
         }
 
