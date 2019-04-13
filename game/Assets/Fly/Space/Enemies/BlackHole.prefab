@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6680916657846828538}
   - component: {fileID: 4489163679998202615}
   - component: {fileID: 555378545182399969}
-  - component: {fileID: 5733716316044703859}
+  - component: {fileID: 7493617824228039987}
   m_Layer: 0
   m_Name: BlackHole
   m_TagString: Untagged
@@ -136,8 +136,8 @@ MonoBehaviour:
   Health: 500
   Damage: 100
   garbageObjects: []
---- !u!61 &5733716316044703859
-BoxCollider2D:
+--- !u!70 &7493617824228039987
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,16 +149,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8, y: 5.33}
-    newSize: {x: 8, y: 5.33}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 7.99, y: 5}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.23, y: 0}
+  m_Size: {x: 7.7, y: 5.3300004}
+  m_Direction: 1

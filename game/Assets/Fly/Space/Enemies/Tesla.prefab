@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 304396935506872154}
   - component: {fileID: 3292334052955589990}
   - component: {fileID: 6345534805184355362}
-  - component: {fileID: 8433942683684302073}
+  - component: {fileID: 397658429843633551}
   m_Layer: 0
   m_Name: Tesla
   m_TagString: Untagged
@@ -123,8 +123,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &8433942683684302073
-BoxCollider2D:
+--- !u!60 &397658429843633551
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,6 +146,39 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.62, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.84499997, y: -0.42}
+      - {x: 0.905, y: -0.48999998}
+      - {x: 0.995, y: -0.53}
+      - {x: 1.175, y: -0.53}
+      - {x: 1.245, y: -0.5}
+      - {x: 1.3249999, y: -0.42999998}
+      - {x: 1.485, y: -0.42}
+      - {x: 1.665, y: -0.39}
+      - {x: 1.785, y: -0.29999998}
+      - {x: 1.785, y: -0.02}
+      - {x: 1.745, y: 0.24}
+      - {x: 1.7249999, y: 0.26}
+      - {x: 1.525, y: 0.29}
+      - {x: 1.395, y: 0.35999998}
+      - {x: 1.0749999, y: 0.45}
+      - {x: 0.79499996, y: 0.51}
+      - {x: 0.66499996, y: 0.53}
+      - {x: -0.024999999, y: 0.53}
+      - {x: -0.13499999, y: 0.52}
+      - {x: -0.375, y: 0.45}
+      - {x: -0.705, y: 0.29}
+      - {x: -0.905, y: 0.22}
+      - {x: -1.275, y: 0.14999999}
+      - {x: -1.4549999, y: 0.12}
+      - {x: -1.745, y: 0}
+      - {x: -1.785, y: -0.06}
+      - {x: -1.785, y: -0.39}
+      - {x: -1.7049999, y: -0.41}
+      - {x: -1.4449999, y: -0.48}
+      - {x: -1.295, y: -0.53}
+      - {x: -1.0749999, y: -0.53}
+      - {x: -1.005, y: -0.5}
+      - {x: -0.865, y: -0.45999998}
+      - {x: 0.66499996, y: -0.45}
