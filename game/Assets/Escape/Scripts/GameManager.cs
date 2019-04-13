@@ -16,16 +16,14 @@ public class GameManager : MonoBehaviour
     public int FuelToCollect;
     public int LevelTime;
 
-    private int m_ammo;
-    private int m_fuel;
+    private int m_ammo = 0;
+    private int m_fuel = 0;
     private int m_currentLevelTime;
     private float m_accumulatedTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_ammo = AmmoToCollect;
-        m_fuel = FuelToCollect;
         m_currentLevelTime = LevelTime;
 
         RulesUIController.UpdateAmmo(m_ammo, AmmoToCollect);
@@ -67,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     void CheckWinConditions()
     {
-        if(m_ammo <= 0 && m_fuel <= 0)
+        if(m_ammo >= AmmoToCollect && m_fuel >= FuelToCollect)
         {
             TransitionInfo.Instance.NextSceneName = NextSceneName;
             SceneManager.LoadScene("Transition/YouWin");
@@ -76,14 +74,14 @@ public class GameManager : MonoBehaviour
 
     public void CollectAmmo()
     {
-        --m_ammo;
+        ++m_ammo;
         RulesUIController.UpdateAmmo(m_ammo, AmmoToCollect);
         CheckWinConditions();
     }
 
     public void CollectFuel()
     {
-        --m_fuel;
+        ++m_fuel;
         RulesUIController.UpdateFuel(m_fuel, FuelToCollect);
         CheckWinConditions();
     }

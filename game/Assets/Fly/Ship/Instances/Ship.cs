@@ -2,10 +2,12 @@
 {
     public class Ship : UnityEngine.MonoBehaviour
     {
+        public event System.Action LooseEvent;
+
         [UnityEngine.SerializeField]
         private int _DurabilityCurrent = 10000;
 
-        public int Durability
+        public int DurabilityCurrent
         {
             get
             {
@@ -15,6 +17,14 @@
 
         [UnityEngine.SerializeField]
         private int _DurabilityMax = 10000;
+
+        public int DurabilityMax
+        {
+            get
+            {
+                return this._DurabilityMax;
+            }
+        }
 
         [UnityEngine.SerializeField]
         private int _FuelConsumption = 1;
@@ -80,10 +90,21 @@
             }
         }
 
-        public void Damage(int Value)
+        public void Hit(int Value)
         {
+            Value = UnityEngine.Mathf.Clamp(Value, 0, this._DurabilityCurrent);
+
             this._DurabilityCurrent -= Value;
             this._DurabilityCurrent = UnityEngine.Mathf.Clamp(this._DurabilityCurrent, 0, this._DurabilityMax);
+
+            if (this._DurabilityCurrent <= 0f)
+            {
+                if (this.LooseEvent != null)
+                {
+                    this.LooseEvent();
+                }
+                this.LooseEvent = null;
+            }            
         }
     }
 }

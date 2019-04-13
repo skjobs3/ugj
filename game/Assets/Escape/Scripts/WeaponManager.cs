@@ -33,6 +33,13 @@ public class WeaponManager : MonoBehaviour
     }
 
     private WeaponType m_weaponType = WeaponType.Machinegun;
+    public WeaponType ActiveWeaponType
+    {
+        get
+        {
+            return m_weaponType;
+        }
+    }
 
     private float m_rotationSpeed = 290.0f;
     private float m_fireInterval = 0.0f;
@@ -115,7 +122,7 @@ public class WeaponManager : MonoBehaviour
 
             case WeaponType.Shotgun:
                 m_activeWeapon = Instantiate(ShotgunPrefab, socket);
-                m_fireInterval = 0.5f;
+                m_fireInterval = 0.2f;
                 break;
 
             default:

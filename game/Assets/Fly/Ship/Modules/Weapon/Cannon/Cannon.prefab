@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2753817102080966549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.75, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6340244410130777887}
@@ -131,6 +131,7 @@ MonoBehaviour:
   _MaxIsInfinite: 0
   _Max: 20
   _Limit: 1
+  _AimingLine: {fileID: 1128604095470815661}
   _ProjectilePrefab: {fileID: 7621956443915992587, guid: 9d22504f3a7446843a2900b9447ec3cb,
     type: 3}
   _ProjectileSpawner: {fileID: 2753817102080966549}
@@ -148,6 +149,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aiming Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226965921667468767, guid: c52c8f33b9d866d4b9c7a93a388a0a36,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4781283093706373604, guid: c52c8f33b9d866d4b9c7a93a388a0a36,
         type: 3}
@@ -211,6 +217,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c52c8f33b9d866d4b9c7a93a388a0a36, type: 3}
+--- !u!1 &1128604095470815661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1226965921667468767, guid: c52c8f33b9d866d4b9c7a93a388a0a36,
+    type: 3}
+  m_PrefabInstance: {fileID: 2210867678844355698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6698000349210082710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4781283093706373604, guid: c52c8f33b9d866d4b9c7a93a388a0a36,

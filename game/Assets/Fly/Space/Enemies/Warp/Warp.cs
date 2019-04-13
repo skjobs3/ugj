@@ -1,7 +1,9 @@
-﻿namespace Fly.Space.Enemy
+﻿namespace Fly.Space.Enemies
 {
     public class Warp : UnityEngine.MonoBehaviour
     {
+        public event System.Action ActionEvent;
+
         [UnityEngine.SerializeField]
         private float _Speed = 10f;
 
@@ -18,7 +20,6 @@
         void OnCollisionEnter2D(UnityEngine.Collision2D Collision)
         {
             UnityEngine.GameObject GameObject = Collision.gameObject;
-
             while (GameObject.transform.parent != null)
             {
                 GameObject = GameObject.transform.parent.gameObject;
@@ -27,13 +28,19 @@
             //
 
             Fly.Ship.Instances.Ship Ship = GameObject.GetComponent<Fly.Ship.Instances.Ship>();
-
             if (Ship == null)
             {
                 return;
             }
 
-            Ship.Damage(Ship.Durability);
+            if (this.ActionEvent != null)
+            {
+                ActionEvent();
+
+                this.ActionEvent = null;
+            }
+
+            UnityEngine.GameObject.Destroy(this.gameObject);
         }
     }
 }
