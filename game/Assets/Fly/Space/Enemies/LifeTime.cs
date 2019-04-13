@@ -17,7 +17,7 @@ public class LifeTime : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        Debug.Log(timer);
+
         if (timer > (lifeTime))
         {
             Destroy(gameObject);
