@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 7845863410742765588, guid: ffda715366a997249b4724cdfaa8e358,
         type: 3}
       propertyPath: _FuelConsumption
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4096485279719159390, guid: ffda715366a997249b4724cdfaa8e358,
         type: 3}
@@ -673,6 +673,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SpeedMultiplier
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235334466473469318, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3,
+        type: 3}
+      propertyPath: _PlayerIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6f9f7ce3d7d1e489c8bb2e0db68aa3, type: 3}
