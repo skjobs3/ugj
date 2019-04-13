@@ -1162,6 +1162,16 @@ PrefabInstance:
       propertyPath: spawnInterval
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
+        type: 3}
+      propertyPath: restrictedArea.x
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
+        type: 3}
+      propertyPath: restrictedArea.y
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d14d689080a00459ea3774697d2532, type: 3}
 --- !u!114 &1081100027 stripped
@@ -2024,6 +2034,16 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnInterval
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
+        type: 3}
+      propertyPath: restrictedArea.x
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484174016669057753, guid: 07d14d689080a00459ea3774697d2532,
+        type: 3}
+      propertyPath: restrictedArea.y
+      value: 23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d14d689080a00459ea3774697d2532, type: 3}
