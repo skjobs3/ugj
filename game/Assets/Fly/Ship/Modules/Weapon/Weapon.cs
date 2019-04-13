@@ -3,6 +3,9 @@
     public class Weapon : Fly.Ship.Modules.Container
     {
         [UnityEngine.SerializeField]
+        private UnityEngine.GameObject _AimingLine = null;
+
+        [UnityEngine.SerializeField]
         private UnityEngine.GameObject _ProjectilePrefab = null;
 
         [UnityEngine.SerializeField]
@@ -93,7 +96,7 @@
             {
                 if (this._FireLast > this._FireDelay)
                 {
-                    if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Triggers.Right >= 0.5f)
+                    if (XInputDotNetPure.GamePad.GetState(PlayerIndex).Triggers.Right > 0f)
                     {
                         if (this.Current > 0)
                         {
@@ -120,19 +123,29 @@
                 return false;
             }
 
+            if (this._AimingLine)
+            {
+                this._AimingLine.SetActive(true);
+            }
+
             this._Player = Player;
             return true;
         }
 
         private bool AreaDeactivateHandler(GamePlayerController Player)
         {
-            if (this._Player == Player)
+            if (this._Player != Player)
             {
-                this._Player = null;
-                return true;
+                return false;
             }
 
-            return false;
+            if (this._AimingLine)
+            {
+                this._AimingLine.SetActive(false);
+            }
+
+            this._Player = null;
+            return true;
         }
     }
 }
