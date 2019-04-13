@@ -28,5 +28,25 @@
         {
             return _Damage;
         }
+
+        private void OnTriggerEnter2D(UnityEngine.Collider2D Collider)
+        {
+            UnityEngine.GameObject GameObject = Collider.gameObject;
+
+            while (GameObject.transform.parent != null)
+            {
+                GameObject = GameObject.transform.parent.gameObject;
+            }
+
+            //
+
+            Fly.Space.Enemies.Enemy Enemy = GameObject.GetComponentInParent<Fly.Space.Enemies.Enemy>();
+            if (Enemy)
+            {
+                Enemy.Hit(this._Damage);
+
+                UnityEngine.GameObject.Destroy(this.gameObject);
+            }
+        }
     }
 }

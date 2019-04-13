@@ -1,58 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Fly.Ship.Modules.Projectile;
-
-public class Enemy : MonoBehaviour
+﻿namespace Fly.Space.Enemies
 {
-    public float Power = 50f;
-    public int Health = 500;
-    public int Damage = 100;
-    public GameObject[] garbageObjects;
-    // Start is called before the first frame update
-    void Start()
+    public class Enemy : UnityEngine.MonoBehaviour
     {
-        
-    }
+        public float Power = 50f;
+        public int Health = 500;
+        public int Damage = 100;
+        public UnityEngine.GameObject[] garbageObjects;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnTriggerEnter2D(Collider2D otherObj)
-    {
-        Debug.Log("Triggered");
-        var projectile = otherObj.gameObject.GetComponent<Projectile>();
-        if (projectile)
+        public void Hit(int Value)
         {
-            Health -= projectile.GetDamage();
+            Value = UnityEngine.Mathf.Clamp(Value, 0, this.Health);
 
-            if (Health <= 0)
+            this.Health -= Value;
+
+            if (this.Health <= 0)
             {
-                foreach (GameObject garbObjType in garbageObjects)
-                {
-                    var GO = Instantiate(garbObjType, this.transform.position, Quaternion.identity);
-                    var velocity = UnityEngine.Random.insideUnitCircle * Power;
-                    var rigitBody = GO.GetComponent<Rigidbody2D>();
-                    rigitBody.velocity = velocity;
-                }
+                this.Explode();
 
-                Destroy(gameObject);
+                UnityEngine.GameObject.Destroy(this.gameObject);
             }
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D otherObj)
-    {
-        Debug.Log("Collide");
-        var ship = otherObj.gameObject.GetComponentInParent<Fly.Ship.Instances.Ship>();
-        if (ship)
+        void OnCollisionEnter2D(UnityEngine.Collision2D Collision)
         {
-            Debug.Log("Ship damage");
-            Debug.Log(Damage);
-            ship.Damage(Damage);
+            UnityEngine.GameObject GameObject = Collision.gameObject;
+
+            while (GameObject.transform.parent != null)
+            {
+                GameObject = GameObject.transform.parent.gameObject;
+            }
+
+            //
+
+            Fly.Ship.Instances.Ship Ship = GameObject.GetComponentInParent<Fly.Ship.Instances.Ship>();
+            if (Ship)
+            {
+                Ship.Hit(Damage);
+
+                UnityEngine.GameObject.Destroy(this.gameObject);
+            }
+        }
+
+        private void Explode()
+        {
+            foreach (UnityEngine.GameObject garbObjType in garbageObjects)
+            {
+                UnityEngine.GameObject GameObject = Instantiate(garbObjType, this.transform.position, UnityEngine.Quaternion.identity);
+                UnityEngine.Vector2 Velocity = UnityEngine.Random.insideUnitCircle * this.Power;
+                UnityEngine.Rigidbody2D RigitBody = GameObject.GetComponent<UnityEngine.Rigidbody2D>();
+                if (RigitBody)
+                {
+                    continue;
+                }
+
+                RigitBody.velocity = Velocity;
+            }
         }
     }
 }
