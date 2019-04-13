@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public PlayerController Player1;
     public PlayerController Player2;
 
+    public string NextSceneName;
+
     public int AmmoToCollect;
     public int FuelToCollect;
     public int LevelTime;
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         if(m_ammo <= 0 && m_fuel <= 0)
         {
-            TransitionInfo.Instance.NextSceneName = "TODO:CutSceneName";
+            TransitionInfo.Instance.NextSceneName = NextSceneName;
             SceneManager.LoadScene("Transition/YouWin");
         }
     }
