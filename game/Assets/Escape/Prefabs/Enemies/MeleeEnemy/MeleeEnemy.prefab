@@ -100,6 +100,8 @@ MonoBehaviour:
   healthBarOffsetY: 0.8
   rangedPainObject: {fileID: 0}
   rangedAttackSpeed: 0.6
+  meleeAttackDamage: 50
+  meleeAttackSpeed: 0.6
   hitPoints: 100
   attackDistance: 2.1
   speed: 0.8

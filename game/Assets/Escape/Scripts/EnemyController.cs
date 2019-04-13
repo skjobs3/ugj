@@ -11,6 +11,9 @@ public class EnemyController : MonoBehaviour
     public GameObject rangedPainObject = null;
     public float rangedAttackSpeed = 0.6f;
 
+    public float meleeAttackDamage = 0.0f;
+    public float meleeAttackSpeed = 0.6f;
+
     public float hitPoints = 100.0f;
     public float attackDistance = 2.1f;
     public float speed;
@@ -31,6 +34,7 @@ public class EnemyController : MonoBehaviour
     private const float maxAffraidOfObstacleDistance = 10.0f;
 
     private float rangedAttackTimer = 0.0f;
+    private float meleeAttackTimer = 0.6f;
 
     public void Hit(float damage)
     {
@@ -48,9 +52,9 @@ public class EnemyController : MonoBehaviour
             Destroy(healthBar);
         }
 
-        if(healthBar != null)
+        if (healthBar != null)
         {
-            if(lastHitTakenTimer > hideHealthBarTime)
+            if (lastHitTakenTimer > hideHealthBarTime)
             {
                 healthBar.SetActive(false);
             }
@@ -67,6 +71,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void updateMeleeAttack()
+    {
+        if (meleeAttackTimer > 0.0f)
+        {
+            meleeAttackTimer -= Time.deltaTime;
+        }
+    }
     void updateTarget()
     {
         Vector3 targetPosition1 = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
@@ -135,6 +146,15 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.tag == "Player" && meleeAttackTimer <= 0.0f)
+        {
+            collision.gameObject.GetComponent<PlayerController>().Hit((int)meleeAttackDamage);
+            meleeAttackTimer = meleeAttackSpeed;
+        }
+    }
+
     void SetLook(Vector3 targetPosition, Vector3 directionVector)
     {
         float angle = Vector2.Angle(Vector2.up, directionVector);
@@ -197,5 +217,6 @@ public class EnemyController : MonoBehaviour
         updateTarget();
         updateTransform();
         updateRangedAttack();
+        updateMeleeAttack();
     }
 }
