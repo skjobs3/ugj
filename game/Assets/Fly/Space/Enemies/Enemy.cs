@@ -50,10 +50,8 @@
                 UnityEngine.Rigidbody2D RigitBody = GameObject.GetComponent<UnityEngine.Rigidbody2D>();
                 if (RigitBody)
                 {
-                    continue;
+                    RigitBody.velocity = Velocity;
                 }
-
-                RigitBody.velocity = Velocity;
             }
         }
     }
