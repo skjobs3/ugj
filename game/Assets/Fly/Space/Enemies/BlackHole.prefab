@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4702307348501824854}
   - component: {fileID: 6680916657846828538}
   - component: {fileID: 4489163679998202615}
-  - component: {fileID: 555378545182399969}
   - component: {fileID: 7493617824228039987}
   m_Layer: 0
   m_Name: BlackHole
@@ -97,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 50
   Health: 500
-  Damage: 100
+  Damage: 500
   garbageObjects: []
 --- !u!50 &4489163679998202615
 Rigidbody2D:
@@ -120,22 +119,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &555378545182399969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6955243303997276987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38184d3d311b0bd44adfd776b99e514c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Power: 50
-  Health: 500
-  Damage: 100
-  garbageObjects: []
 --- !u!70 &7493617824228039987
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
